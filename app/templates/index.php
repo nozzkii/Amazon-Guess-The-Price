@@ -6,6 +6,7 @@ $error='';
 <html>
     <head>
         <title>Amazon Guess The Price</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     </head>
     <body>
       <h1>Guess The Price</h1>
