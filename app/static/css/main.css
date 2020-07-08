@@ -12,27 +12,29 @@ body {
   background: #2c3e50;
 }
 
-#wrap {
-  margin: 0 auto 30px;
-
+.section{
+  width: 1080px;
+  height: 150px;
 }
 
-#regbar {
-  height: 67px;
+.column {
+  float:left;
+  padding: 20px;
+}
+
+/* Clear floats after image containers */
+.row::after {
+ content: "";
+ clear: both;
+ display: table;
+}
+
+.regbar {
   background: #34495e;
 }
 
-#navthing {
-margin-left: 50px;
-}
-
-h1, h2 {
-  padding: 20px;
+h1, h2, p{
   color: #ecf0f1;
-}
-
-fieldset {
-border: none;
 }
 
 .login {
@@ -53,56 +55,11 @@ border: none;
   top: -10px;
 }
 
-.formholder {
-  background: #ecf0f1;
+.site-name {
+  background: #e90331;
   width: 350px;
   border-radius: 5px;
   padding-top: 5px;
-  fieldset {
-
-  }
-
-  input[type="email"], input[type="password"] {
-    padding: 7px 5px;
-    margin: 10px 0;
-    width: 96%;
-    display: block;
-    font-size: 18px;
-    border-radius: 5px;
-    border: none;
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 1px 1px #1abc9c;
-      }
-   -webkit-transition: 0.3s linear;
-    -moz-transition: 0.3s linear;
-    -o-transition: 0.3s linear;
-    transition: 0.3s linear;
-  }
-
-  input[type="submit"] {
-    background: #1abc9c;
-    padding: 10px;
-    font-size: 20px;
-    display: block;
-    width: 100%;
-    border: none;
-    color: #fff;
-    border-radius: 5px;
-    &:hover {
-      background: #1bc6a4;
-      }
-  }
-
-}
-
-.randompad {
-padding: 10px;
-}
-
-.green {
-  color: #1abc9c;
 }
 
 a {
@@ -112,4 +69,10 @@ a {
   &:hover {
       color: #1abc9c;
     }
+}
+
+@media screen and (max-width: 500px) {
+  .column {
+    width: 100%;
+  }
 }
