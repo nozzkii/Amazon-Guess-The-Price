@@ -44,10 +44,9 @@ $error='';
       </div>
       </div>
       </div>
-    <div>
+    <div class="group">
       {% for member in group %}
-      <h1>hi</h1>
-      <p>By {{member.user}}</p>
+      <p>User {{member.user}}</p>
       {% endfor %}
     </div>
     <p>{{usr}}</p>

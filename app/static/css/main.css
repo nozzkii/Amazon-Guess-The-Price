@@ -1,10 +1,5 @@
 @import "compass/css3";
 
-* {
-margin: 0;
-padding: 0;
-}
-
 body {
   margin: 0;
   padding: 0;
@@ -13,13 +8,24 @@ body {
 }
 
 .section{
-  width: 1080px;
-  height: 150px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.group{
+  display: block;
+  float: left;
+  text-align: center;
+  margin:20px
 }
 
 .column {
   float:left;
-  padding: 20px;
+  margin: 20px 5%;
+  width: 15%;
+  height: 100px;
+  /*padding: 20px;*/
 }
 
 /* Clear floats after image containers */
