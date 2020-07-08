@@ -1,4 +1,3 @@
-<!doctype html>
 <?php
 session_start();
 $error='';
@@ -10,6 +9,10 @@ $error='';
     </head>
     <body>
       <h1>Guess The Price</h1>
+      {% for post in posts %}
+      <h1>hi</h1>
+      <p>By {{post.author}}</p>
+      {% endfor %}
       <div id="wrap">
 <div id="regbar">
   <div id="navthing">
@@ -32,5 +35,6 @@ $error='';
   </div>
 </div>
 </div>
+
     </body>
 </html>

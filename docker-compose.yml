@@ -11,6 +11,7 @@ services:
       - 3351:3306
     volumes:
       - mysql:/var/lib/mysql
+    restart: always
 
   flask:
     build: ./app
