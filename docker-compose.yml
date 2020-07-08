@@ -6,18 +6,15 @@ services:
   db-data:
     image: mysql:latest
     environment:
-      MYSQL_PASSWORD: example
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_USER: admin
-      MYSQL_DATABASE: amazon
+      - NODE_ENV
     ports:
-      - 3306:3306
+      - 3351:3306
     volumes:
       - mysql:/var/lib/mysql
 
   flask:
     build: ./app
-    links:
+    depends_on:
       - db-data
     volumes:
       - ./app:/usr/src/app

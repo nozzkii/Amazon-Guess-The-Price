@@ -1,4 +1,8 @@
 <!doctype html>
+<?php
+session_start();
+$error='';
+?>
 <html>
     <head>
         <title>Amazon Guess The Price</title>
