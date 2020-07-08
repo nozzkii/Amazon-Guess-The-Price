@@ -1,9 +1,5 @@
-# Product Service
-
-# Import framework
 from flask import Flask, render_template, redirect, url_for
 
-# Instantiate the app
 app = Flask(__name__)
 
 @app.route("/")
