@@ -65,10 +65,9 @@ def logout():
 def setcookie():
     if request.method == 'POST':
         user = request.form['ck']
-    resp = make_response(render_template('readcookie.html'))
+    resp = make_response(render_template("index.php", group=group))
     resp.set_cookie('userID', user)
     return resp
-    redirect(url_for("home"))
 
 @app.route('/getcookie', methods = ['POST', 'GET'])
 def getcookie():
