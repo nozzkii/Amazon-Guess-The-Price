@@ -1,10 +1,15 @@
-from datetime import timedelta
 from flask import Flask, render_template, redirect, url_for, session, request, make_response, flash
+from random import randrange
+from datetime import timedelta
+from flask_socketio import SocketIO, send
 
 app = Flask(__name__)
-app.secret_key="jhsdkfhskjdfhskf"
+app.config["SECRET_KEY"]="jhsdkfhskjdfhskf"
 app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=5)
+socketio = SocketIO(app)
 
+usersOnlineDisplayNames = []
+usersOnlineAvatars = []
 group = [
 {
 'user': 'Johne doe',
@@ -73,5 +78,10 @@ def getcookie():
     else:
         return redirect(url_for("home"))
 
+@socketio.on('message')
+def handleMessage(msg):
+    print('Message: ' + msg)
+    send(msg, broadcast=True)
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    socketio.run(app.run(debug=True, host='0.0.0.0'))
