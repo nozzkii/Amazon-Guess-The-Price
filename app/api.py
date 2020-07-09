@@ -1,7 +1,9 @@
+from datetime import timedelta
 from flask import Flask, render_template, redirect, url_for, session, request, make_response, flash
 
 app = Flask(__name__)
 app.secret_key="jhsdkfhskjdfhskf"
+app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=5)
 
 group = [
 {
@@ -22,6 +24,7 @@ def home():
     if request.method == "POST":
         user = request.form["nm"]
         session["user"] = user
+        session.permanent = True
         return redirect(url_for("user"))
     else:
         return render_template("index.php", group=group)
