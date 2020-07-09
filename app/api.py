@@ -8,8 +8,11 @@ app.config["SECRET_KEY"]="jhsdkfhskjdfhskf"
 app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=5)
 socketio = SocketIO(app)
 
+
+
 usersOnlineDisplayNames = []
 usersOnlineAvatars = []
+
 group = [
 {
 'user': 'Johne doe',
@@ -74,6 +77,15 @@ def getcookie():
     if request.cookies.get('userID') != "":
         name = request.cookies.get('userID')
         return f'<h1>You are logged in as {name}</h1>'
+    else:
+        return redirect(url_for("home"))
+
+@app.route('/deletecookie', methods = ['POST', 'GET'])
+def deletecookie():
+    if request.cookies.get('userID') != "":
+        resp = make_response(render_template("index.php", group=group))
+        resp.set_cookie('userID', '', expires=0)
+        return resp
     else:
         return redirect(url_for("home"))
 

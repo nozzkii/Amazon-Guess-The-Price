@@ -31,18 +31,30 @@ body {
 
 .group{
   display: block;
-  float: left;
   margin:20px;
   width: 100%;
 }
 
-.four-column {
+.four-column{
   float:left;
   padding: 20px 5%;
   width: 15%;
   height: auto;
   /*padding: 20px;*/
 }
+
+.chatfield{
+  background: #fff;
+  height:200px;
+  width: 100px;
+  padding: 0 10px;
+}
+
+form{
+  width: 100%;
+  float:left;
+}
+
 
 /* Clear floats after image containers */
 .row::after {
