@@ -51,6 +51,10 @@ body {
   overflow: scroll;
 }
 
+.chatform{
+  margin: 10%
+}
+
 .chatfield{
   background: #fff;
   height:200px;

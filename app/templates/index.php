@@ -2,28 +2,28 @@
     <head>
         <title>Amazon Guess The Price</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
       <script type="text/javascript">
       $(document).ready(function() {
 
-	       var socket = io.connect('http://127.0.0.1:5000');
+	       var socket = io.connect('localhost:5000');
 
-	        socket.on('connect', function() {
-		          socket.send('User has connected!');
-	           });
+   socket.on('connect', function() {
+       socket.emit('my event', {data: 'I\'m connected!'});
+   });
 
-	            socket.on('message', function(msg) {
-		              $("#messages").append('<li>'+msg+'</li>');
-		                console.log('Received message');
-	                 });
+   socket.on('message', function(msg) {
+		$("#messages").append('<li>'+msg+'</li>');
+		console.log('Received message');
+	});
 
-	                  $('#sendbutton').on('click', function() {
-		                    socket.send($('#myMessage').val());
-		                      $('#myMessage').val('');
-	                       });
+	$('#sendbutton').on('click', function() {
+		socket.send($('#myMessage').val());
+		$('#myMessage').val('');
+	});
 
                        });
       </script>
@@ -83,9 +83,9 @@
       {% endfor %}
     </div>
     <div class="chatfield">
+      <ul id="messages"></ul>
     </div>
-    <ul id="messages"></ul>
-    <div>
+    <div class="chatform">
       <input type="text" id="myMessage">
       <button id="sendbutton">Send</button>
     </div>

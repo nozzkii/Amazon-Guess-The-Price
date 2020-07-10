@@ -105,5 +105,13 @@ def handleMessage(msg):
     print('Message: ' + msg)
     send(msg, broadcast=True)
 
+@socketio.on_error()        # Handles the default namespace
+def error_handler(e):
+    pass
+
+@socketio.on_error_default  # handles all namespaces without an explicit error handler
+def default_error_handler(e):
+    pass
+
 if __name__ == '__main__':
     socketio.run(app.run(debug=True, host='0.0.0.0'))
