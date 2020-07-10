@@ -1,14 +1,31 @@
-<?php
-session_start();
-$error='';
-?>
 <html>
     <head>
         <title>Amazon Guess The Price</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     </head>
     <body>
-      <script></script>
+      <script>
+      <script type="text/javascript">
+      $(document).ready(function() {
+
+	       var socket = io.connect('http://127.0.0.1:5000');
+
+	        socket.on('connect', function() {
+		          socket.send('User has connected!');
+	           });
+
+	socket.on('message', function(msg) {
+		$("#messages").append('<li>'+msg+'</li>');
+		console.log('Received message');
+	});
+
+	$('#sendbutton').on('click', function() {
+		socket.send($('#myMessage').val());
+		$('#myMessage').val('');
+	});
+
+});
+      </script>
       <div class="header">
       <h1>Guess The Price</h1>
       </div>
@@ -65,13 +82,11 @@ $error='';
       {% endfor %}
     </div>
     <div class="chatfield">
-      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      <ul id="messages"></ul>
     </div>
     <div>
-      <form action = "/msg" method = "POST">
-        <input type=submit value="Send message"/>
-        <input type="text" name="msg"/>
-      </form>
+      <input type="text" id="myMessage">
+      <button id="sendbutton">Send</button>
     </div>
   </div>
     <p>{{usr}}</p>

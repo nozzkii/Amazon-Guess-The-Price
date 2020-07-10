@@ -76,7 +76,7 @@ def logout():
 def setcookie():
     if request.method == 'POST':
         cookie_user = request.form['ck']
-        flash(f"You are logged in as {cookie_user}")
+        flash(f"Your userID is {cookie_user}")
     resp = make_response(redirect(url_for("home")))
     resp.set_cookie('userID', cookie_user)
     return resp
@@ -85,7 +85,7 @@ def setcookie():
 def getcookie():
     if request.cookies.get('userID') != "":
         name = request.cookies.get('userID')
-        flash(f"You are logged in as {name}")
+        flash(f"Your userID is {name}")
         return redirect(url_for("home"))
     else:
         return redirect(url_for("home"))
