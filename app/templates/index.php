@@ -2,9 +2,10 @@
     <head>
         <title>Amazon Guess The Price</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
-      <script>
       <script type="text/javascript">
       $(document).ready(function() {
 
@@ -14,17 +15,17 @@
 		          socket.send('User has connected!');
 	           });
 
-	socket.on('message', function(msg) {
-		$("#messages").append('<li>'+msg+'</li>');
-		console.log('Received message');
-	});
+	            socket.on('message', function(msg) {
+		              $("#messages").append('<li>'+msg+'</li>');
+		                console.log('Received message');
+	                 });
 
-	$('#sendbutton').on('click', function() {
-		socket.send($('#myMessage').val());
-		$('#myMessage').val('');
-	});
+	                  $('#sendbutton').on('click', function() {
+		                    socket.send($('#myMessage').val());
+		                      $('#myMessage').val('');
+	                       });
 
-});
+                       });
       </script>
       <div class="header">
       <h1>Guess The Price</h1>
@@ -82,8 +83,8 @@
       {% endfor %}
     </div>
     <div class="chatfield">
-      <ul id="messages"></ul>
     </div>
+    <ul id="messages"></ul>
     <div>
       <input type="text" id="myMessage">
       <button id="sendbutton">Send</button>
