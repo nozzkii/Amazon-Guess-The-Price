@@ -32,7 +32,6 @@ body {
 .group{
   display: block;
   margin:20px;
-  width: 100%;
 }
 
 .four-column{
@@ -46,8 +45,8 @@ body {
 .chatfield{
   background: #fff;
   height:200px;
-  width: 100px;
-  padding: 0 10px;
+  margin: 10%;
+  overflow: scroll;
 }
 
 form{

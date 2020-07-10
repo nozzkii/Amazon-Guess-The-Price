@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, session, request, make_response, flash
 from random import randrange
 from datetime import timedelta
+from flask_mysqldb import MySQL
 from flask_socketio import SocketIO, send
 
 app = Flask(__name__)
