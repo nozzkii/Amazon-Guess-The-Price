@@ -5,11 +5,16 @@ from flask_mysqldb import MySQL
 from flask_socketio import SocketIO, send
 
 app = Flask(__name__)
+
 app.config["SECRET_KEY"]="jhsdkfhskjdfhskf"
 app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=5)
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'admin'
+app.config['MYSQL_PASSWORD'] = 'test'
+app.config['MYSQL_DB'] = 'amazon'
+
 socketio = SocketIO(app)
-
-
+mysql = MySQL(app)
 
 usersOnlineDisplayNames = []
 usersOnlineAvatars = []
@@ -56,35 +61,40 @@ def letsplay():
 def user():
     if "user" in session:
         user = session["user"]
-        return f"<h1>You are logged in as {user}</h1>"
+        flash(f"You are logged in as {user}")
+        return redirect(url_for("home"))
     else:
         return redirect(url_for("lobby"))
 
 @app.route("/logout", methods = ['POST', 'GET'])
 def logout():
     session.pop("user", None)
+    flash("You have been logged out")
     return redirect(url_for("home"))
 
 @app.route('/setcookie', methods = ['POST', 'GET'])
 def setcookie():
     if request.method == 'POST':
-        user = request.form['ck']
-    resp = make_response(render_template("index.php", group=group))
-    resp.set_cookie('userID', user)
+        cookie_user = request.form['ck']
+        flash(f"You are logged in as {cookie_user}")
+    resp = make_response(redirect(url_for("home")))
+    resp.set_cookie('userID', cookie_user)
     return resp
 
 @app.route('/getcookie', methods = ['POST', 'GET'])
 def getcookie():
     if request.cookies.get('userID') != "":
         name = request.cookies.get('userID')
-        return f'<h1>You are logged in as {name}</h1>'
+        flash(f"You are logged in as {name}")
+        return redirect(url_for("home"))
     else:
         return redirect(url_for("home"))
 
 @app.route('/deletecookie', methods = ['POST', 'GET'])
 def deletecookie():
     if request.cookies.get('userID') != "":
-        resp = make_response(render_template("index.php", group=group))
+        flash(f"You deleted your cookie")
+        resp = make_response(redirect(url_for("home")))
         resp.set_cookie('userID', '', expires=0)
         return resp
     else:

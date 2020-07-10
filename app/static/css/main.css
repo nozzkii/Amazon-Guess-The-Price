@@ -29,6 +29,8 @@ body {
   float: left;
 }
 
+.flash{color: red}
+
 .group{
   display: block;
   margin:20px;
@@ -40,6 +42,13 @@ body {
   width: 15%;
   height: auto;
   /*padding: 20px;*/
+}
+.screen{
+  background: #fff;
+  height: 400px;
+  display: flex;
+  width: 100%;
+  overflow: scroll;
 }
 
 .chatfield{

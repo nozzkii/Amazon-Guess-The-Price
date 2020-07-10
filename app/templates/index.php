@@ -46,14 +46,23 @@ $error='';
       <h2>Delete Cookie</h2>
       <input type=submit value="Delete Cookie"/>
       </form>
+      <div class="screen">
+      </div>
       </div>
       <div class="right-section">
+    <div>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for msg in messages %}
+      <p class="flash"><b>{{msg}}</b></p>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    </div>
     <div class="group">
       {% for member in group %}
       <p>User {{member.user}}</p>
       {% endfor %}
-    </div>
-    <div>
     </div>
     <div class="chatfield">
       Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
