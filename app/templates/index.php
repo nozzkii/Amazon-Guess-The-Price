@@ -65,6 +65,7 @@
       <input type=submit value="Delete Cookie"/>
       </form>
       <div class="screen">
+        <img  src="/static/img/product_screenshot.png" alt="My picture" />
       </div>
       </div>
       <div class="right-section">
