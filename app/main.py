@@ -4,6 +4,7 @@ from datetime import timedelta
 from flask_mysqldb import MySQL
 from flask_socketio import SocketIO, send
 from plugin.cookie import cookieconf
+from db.sql_data import *
 
 
 app = Flask(__name__)
@@ -11,10 +12,10 @@ app.register_blueprint(cookieconf, url_prefix="")
 
 app.config["SECRET_KEY"]="jhsdkfhskjdfhskf"
 app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=5)
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'admin'
-app.config['MYSQL_PASSWORD'] = 'test'
-app.config['MYSQL_DB'] = 'amazon'
+app.config['MYSQL_HOST'] = MYSQL_HOST
+app.config['MYSQL_USER'] = MYSQL_USER
+app.config['MYSQL_PASSWORD'] = MYSQL_PASSWORD
+app.config['MYSQL_DB'] = MYSQL_DB
 
 socketio = SocketIO(app)
 mysql = MySQL(app)
