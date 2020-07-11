@@ -3,8 +3,11 @@ from random import randrange
 from datetime import timedelta
 from flask_mysqldb import MySQL
 from flask_socketio import SocketIO, send
+from cookie import cookieconf
+
 
 app = Flask(__name__)
+app.register_blueprint(cookieconf, url_prefix="")
 
 app.config["SECRET_KEY"]="jhsdkfhskjdfhskf"
 app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=5)
@@ -71,34 +74,6 @@ def logout():
     session.pop("user", None)
     flash("You have been logged out")
     return redirect(url_for("home"))
-
-@app.route('/setcookie', methods = ['POST', 'GET'])
-def setcookie():
-    if request.method == 'POST':
-        cookie_user = request.form['ck']
-        flash(f"Your userID is {cookie_user}")
-    resp = make_response(redirect(url_for("home")))
-    resp.set_cookie('userID', cookie_user)
-    return resp
-
-@app.route('/getcookie', methods = ['POST', 'GET'])
-def getcookie():
-    if request.cookies.get('userID') != "":
-        name = request.cookies.get('userID')
-        flash(f"Your userID is {name}")
-        return redirect(url_for("home"))
-    else:
-        return redirect(url_for("home"))
-
-@app.route('/deletecookie', methods = ['POST', 'GET'])
-def deletecookie():
-    if request.cookies.get('userID') != "":
-        flash(f"You deleted your cookie")
-        resp = make_response(redirect(url_for("home")))
-        resp.set_cookie('userID', '', expires=0)
-        return resp
-    else:
-        return redirect(url_for("home"))
 
 @socketio.on('message')
 def handleMessage(msg):
