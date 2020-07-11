@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, make_response, flash
 from flask_socketio import SocketIO
 
-cookieconf = Blueprint("cookie", __name__, static_folder="static", template_folder="templates")
+cookieconf = Blueprint("cookie", __name__, static_folder="(../static", template_folder="../templates")
 
 @cookieconf.route('/setcookie', methods = ['POST', 'GET'])
 def setcookie():

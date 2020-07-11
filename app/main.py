@@ -3,7 +3,7 @@ from random import randrange
 from datetime import timedelta
 from flask_mysqldb import MySQL
 from flask_socketio import SocketIO, send
-from cookie import cookieconf
+from plugin.cookie import cookieconf
 
 
 app = Flask(__name__)
