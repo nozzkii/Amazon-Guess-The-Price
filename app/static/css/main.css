@@ -124,7 +124,6 @@ a {
 }**/
 
 @media (max-width: 400px) {
-  /∗ CSS-Styles, die nur auf Bildschirmen bis 400 Pixel Breite angewendet werden ∗/
   .four-column{
     float:left;
     padding: 20px 5%;
@@ -135,34 +134,42 @@ a {
   }
 }
 
+@media (max-width: 400px) {
+  .four-column{
+    float:left;
+    padding: 20px 5%;
+    width: 15%;
+    height: auto;
+    /*padding: 20px;*/
+    color: red;
+  }
+}
+
 @media (max-width: 480px) {
-/∗ CSS-Styles, die nur auf Bildschirmen bis 480 Pixel Breite angewendet werden ∗/
 .four-column{
   float:left;
   padding: 20px 5%;
-  width: 15%;
+  width: 100%;
   height: auto;
   /*padding: 20px;*/
-  
+
 }
 
 @media (min-width: 481px) (max-width: 800px) {
-/∗ CSS-Styles, die nur auf Bildschirmen bis 800 Pixel Breite angewendet werden ∗/
 .four-column{
   float:left;
   padding: 20px 5%;
-  width: 15%;
+  width: 100%;
   height: auto;
   /*padding: 20px;*/
 
 }
 
 @media (min-width: 801px) and (max-width: 1024px) {
-/∗ CSS-Styles, die nur auf Bildschirmen mit einer Breite zwischen 801 und 1024 Pixeln angewendet werden ∗/
 .four-column{
   float:left;
   padding: 20px 5%;
-  width: 15%;
+  width: 100%;
   height: auto;
   /*padding: 20px;*/
   /*background-color: red;*/
@@ -170,25 +177,12 @@ a {
 }
 
 @media (min-width: 1025px) and (max-width: 1280px) {
-/∗ CSS-Styles, die nur auf Bildschirmen mit einer Breite zwischen 1024 und 1280 Pixeln angewendet werden ∗/
 .four-column{
   float:left;
   padding: 20px 5%;
-  width: 15%;
+  width: 100%;
   height: auto;
   /*padding: 20px;*/
   /*background-color: red;*/
-}
-}
-
-@media (min-width: 1281px) {
-/∗ CSS-Styles, die nur auf Bildschirmen mit einer Breite ab 1281 Pixeln angewendet werden ∗/
-.four-column{
-  float:left;
-  padding: 20px 5%;
-  width: 15%;
-  height: auto;
-  /*padding: 20px;*/
-  background-color: green;
 }
 }
