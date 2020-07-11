@@ -83,6 +83,7 @@
       <p>User {{member.user}}</p>
       {% endfor %}
     </div>
+    <p>There are {{file_count}} screenshots</p>
     <div class="chatfield">
       <ul id="messages"></ul>
     </div>

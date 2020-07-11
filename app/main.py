@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, redirect, url_for, session, request, make_response, flash
 from random import randrange
 from datetime import timedelta
@@ -6,6 +7,7 @@ from flask_socketio import SocketIO, send
 from plugin.cookie import cookieconf
 from db.sql_data import *
 from ctypes import *
+
 
 app = Flask(__name__)
 app.register_blueprint(cookieconf, url_prefix="")
@@ -22,6 +24,10 @@ mysql = MySQL(app)
 
 usersOnlineDisplayNames = []
 usersOnlineAvatars = []
+
+#count screenshots
+path, dirs, files = next(os.walk("/usr/src/app/static/img"))
+file_count = len(files)
 
 group = [
 {
@@ -45,7 +51,7 @@ def home():
         session.permanent = True
         return redirect(url_for("user"))
     else:
-        return render_template("index.php", group=group)
+        return render_template("index.php", group=group, file_count=file_count)
 
 @app.route("/lobby")
 def lobby():
