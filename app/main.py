@@ -5,7 +5,7 @@ from flask_mysqldb import MySQL
 from flask_socketio import SocketIO, send
 from plugin.cookie import cookieconf
 from db.sql_data import *
-
+from ctypes import *
 
 app = Flask(__name__)
 app.register_blueprint(cookieconf, url_prefix="")
