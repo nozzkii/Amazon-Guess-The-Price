@@ -84,7 +84,7 @@
       <p>User {{member.user}}</p>
       {% endfor %}
     </div>
-    <p>There are {{file_count}} screenshots</p>
+    <p>There are {{file_count}} screenshots in /static/img</p>
     <div class="chatfield">
       <p>{{user}}</p><ul id="messages"></ul>
     </div>
