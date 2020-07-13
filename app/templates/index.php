@@ -8,10 +8,6 @@
       <script type="text/javascript">
       $(document).ready(function() {
 
-  function convert(vars) {
-      return vars
-  }
-
 	       var socket = io.connect('localhost:5000');
 
    socket.on('connect', function() {
@@ -19,7 +15,7 @@
    });
 
    socket.on('message', function(msg) {
-		$("#messages").append('<li>'+msg+'</li>');
+		$("#messages").append('<li>' +msg+'</li>');
 		console.log('Received message');
 	});
 
