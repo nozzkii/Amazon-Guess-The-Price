@@ -1,4 +1,5 @@
 import os
+import json
 from flask import Flask, render_template, redirect, url_for, session, request, make_response, flash
 from random import randrange
 from datetime import timedelta
@@ -6,8 +7,6 @@ from flask_mysqldb import MySQL
 from flask_socketio import SocketIO, send
 from plugin.cookie import cookieconf
 from db.sql_data import *
-from ctypes import *
-
 
 app = Flask(__name__)
 app.register_blueprint(cookieconf, url_prefix="")
@@ -40,6 +39,7 @@ group = [
 }
 ]
 
+
 @app.route("/")
 def redirecthome():
     return redirect(url_for("home"))
@@ -58,7 +58,7 @@ def lobby():
     if "user" in session:
         user = session["user"]
         message = f"<p>You are logged in as {user}</p>"
-        return render_template("lobby.php", message=message)
+        return render_template("lobby.php", message=message, user=user)
     else:
         message = f"<p>You are not logged in</p>"
         return render_template("lobby.php", message=message)
