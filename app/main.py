@@ -1,3 +1,5 @@
+import os
+import json
 from flask import Flask, render_template, redirect, url_for, session, request, make_response, flash
 from random import randrange
 from datetime import timedelta
@@ -5,7 +7,6 @@ from flask_mysqldb import MySQL
 from flask_socketio import SocketIO, send
 from plugin.cookie import cookieconf
 from db.sql_data import *
-from ctypes import *
 
 app = Flask(__name__)
 app.register_blueprint(cookieconf, url_prefix="")
@@ -23,6 +24,10 @@ mysql = MySQL(app)
 usersOnlineDisplayNames = []
 usersOnlineAvatars = []
 
+#count screenshots
+path, dirs, files = next(os.walk("/usr/src/app/static/img"))
+file_count = len(files)
+
 group = [
 {
 'user': 'Johne doe',
@@ -33,6 +38,7 @@ group = [
 'id': '43'
 }
 ]
+
 
 @app.route("/")
 def redirecthome():
@@ -45,14 +51,14 @@ def home():
         session.permanent = True
         return redirect(url_for("user"))
     else:
-        return render_template("index.php", group=group)
+        return render_template("index.php", group=group, file_count=file_count)
 
 @app.route("/lobby")
 def lobby():
     if "user" in session:
         user = session["user"]
         message = f"<p>You are logged in as {user}</p>"
-        return render_template("lobby.php", message=message)
+        return render_template("lobby.php", message=message, user=user)
     else:
         message = f"<p>You are not logged in</p>"
         return render_template("lobby.php", message=message)

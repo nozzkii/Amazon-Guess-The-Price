@@ -1,13 +1,16 @@
-<html>
     <head>
-        <title>Amazon Guess The Price</title>
+          <title>{% block title %}Amazon Guess The Price{% endblock %}</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
-    <body>
+{% block content %}
       <script type="text/javascript">
       $(document).ready(function() {
+
+  function convert(vars) {
+      return vars
+  }
 
 	       var socket = io.connect('localhost:5000');
 
@@ -65,6 +68,7 @@
       <input type=submit value="Delete Cookie"/>
       </form>
       <div class="screen">
+        <img  src="/static/img/product_screenshot.png" alt="My picture" />
       </div>
       </div>
       <div class="right-section">
@@ -78,19 +82,20 @@
       {% endwith %}
     </div>
     <div class="group">
+      {% if user %}
+      {% endif%}
       {% for member in group %}
       <p>User {{member.user}}</p>
       {% endfor %}
     </div>
+    <p>There are {{file_count}} screenshots</p>
     <div class="chatfield">
-      <ul id="messages"></ul>
+      <p>{{user}}</p><ul id="messages"></ul>
     </div>
     <div class="chatform">
       <input type="text" id="myMessage">
       <button id="sendbutton">Send</button>
     </div>
   </div>
-    <p>{{usr}}</p>
     </div>
-    </body>
-</html>
+{% endblock %}
