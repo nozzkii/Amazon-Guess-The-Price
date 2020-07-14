@@ -1,5 +1,4 @@
 import os
-import json
 from flask import Flask, render_template, redirect, url_for, session, request, make_response, flash
 from random import randrange
 from datetime import timedelta
@@ -23,6 +22,7 @@ mysql = MySQL(app)
 
 usersOnlineDisplayNames = []
 usersOnlineAvatars = []
+
 
 #count screenshots
 path, dirs, files = next(os.walk("/usr/src/app/static/img"))
@@ -58,7 +58,7 @@ def lobby():
     if "user" in session:
         user = session["user"]
         message = f"<p>You are logged in as {user}</p>"
-        return render_template("lobby.php", message=message, user=user)
+        return render_template("lobby.php", message=message)
     else:
         message = f"<p>You are not logged in</p>"
         return render_template("lobby.php", message=message)
@@ -84,8 +84,27 @@ def logout():
 
 @socketio.on('message')
 def handleMessage(msg):
-    print('Message: ' + msg)
-    send(msg, broadcast=True)
+    if "user" in session:
+        user = session["user"]
+        print('Message: ' + msg)
+        send(user + ': ' + msg, broadcast=True)
+    else:
+        send('You need a session name! Please create a session name.')
+
+@socketio.on('join')
+def on_join(data):
+    username = session["user"]
+    room = data['room']
+    join_room(room)
+    send(username + ' has entered the room.', room=room)
+
+@socketio.on('leave')
+def on_leave(data):
+    username = session["user"]
+    room = data['room']
+    leave_room(room)
+    send(username + ' has left the room.', room=room)
+
 
 @socketio.on_error()        # Handles the default namespace
 def error_handler(e):
