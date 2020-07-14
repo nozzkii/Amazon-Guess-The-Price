@@ -70,6 +70,13 @@ form{
   float:left;
 }
 
+.msg {
+    background: orange;
+    width: 100%;
+    word-break: break-all;
+
+}
+
 
 /* Clear floats after image containers */
 .row::after {
@@ -134,17 +141,6 @@ a {
     height: auto;
     /*padding: 20px;*/
     background-color: red;
-  }
-}
-
-@media (max-width: 400px) {
-  .four-column{
-    float:left;
-    padding: 20px 5%;
-    width: 15%;
-    height: auto;
-    /*padding: 20px;*/
-    color: red;
   }
 }
 

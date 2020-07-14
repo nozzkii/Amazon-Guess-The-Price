@@ -15,7 +15,7 @@
    });
 
    socket.on('message', function(msg) {
-		$("#messages").append('<li>' +msg+'</li>');
+		$("#messages").append('<li class="msg">' +msg+'</li>');
 		console.log('Received message');
 	});
 
