@@ -19,6 +19,8 @@
 		console.log('Received message');
 	});
 
+
+
 	$('#sendbutton').on('click', function() {
 		socket.send($('#myMessage').val());
 		$('#myMessage').val('');

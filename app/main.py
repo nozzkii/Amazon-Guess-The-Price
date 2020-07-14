@@ -23,6 +23,7 @@ mysql = MySQL(app)
 usersOnlineDisplayNames = []
 usersOnlineAvatars = []
 
+
 #count screenshots
 path, dirs, files = next(os.walk("/usr/src/app/static/img"))
 file_count = len(files)
@@ -89,6 +90,21 @@ def handleMessage(msg):
         send(user + ': ' + msg, broadcast=True)
     else:
         send('You need a session name! Please create a session name.')
+
+@socketio.on('join')
+def on_join(data):
+    username = session["user"]
+    room = data['room']
+    join_room(room)
+    send(username + ' has entered the room.', room=room)
+
+@socketio.on('leave')
+def on_leave(data):
+    username = session["user"]
+    room = data['room']
+    leave_room(room)
+    send(username + ' has left the room.', room=room)
+
 
 @socketio.on_error()        # Handles the default namespace
 def error_handler(e):
