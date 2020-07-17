@@ -1,13 +1,13 @@
 import os
+import random
 from flask import Flask, render_template, redirect, url_for, session, request, make_response, flash
-from random import randrange
 from datetime import timedelta
 from flask_mysqldb import MySQL
 from flask_socketio import SocketIO, send
 from plugin.cookie import cookieconf
 from db.sql_data import *
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static' )
 app.register_blueprint(cookieconf, url_prefix="")
 
 app.config["SECRET_KEY"]="jhsdkfhskjdfhskf"
@@ -20,13 +20,15 @@ app.config['MYSQL_DB'] = MYSQL_DB
 socketio = SocketIO(app)
 mysql = MySQL(app)
 
+path, dirs, files = next(os.walk("/usr/src/app/static/img"))
+file_count = len(files)
+arr = os.listdir('/usr/src/app/static/img')
+
 usersOnlineDisplayNames = []
 usersOnlineAvatars = []
 
-
 #count screenshots
-path, dirs, files = next(os.walk("/usr/src/app/static/img"))
-file_count = len(files)
+
 
 group = [
 {
@@ -43,15 +45,18 @@ group = [
 @app.route("/")
 def redirecthome():
     return redirect(url_for("home"))
-@app.route("/home", methods=["POST", "GET"])
+@app.route("/home", methods=['POST', 'GET'])
 def home():
+    path, dirs, files = next(os.walk("/usr/src/app/static/img"))
+    file_count = len(files)
+    arr = os.listdir('/usr/src/app/static/img')
     if request.method == "POST":
         user = request.form["nm"]
         session["user"] = user
         session.permanent = True
         return redirect(url_for("user"))
     else:
-        return render_template("index.php", group=group, file_count=file_count)
+        return render_template("index.php", group=group, file_count=file_count, img_url=request.args.get('img_url'))
 
 @app.route("/lobby")
 def lobby():
@@ -76,6 +81,25 @@ def user():
     else:
         return redirect(url_for("lobby"))
 
+@app.route("/newproduct", methods = ['POST', 'GET'])
+def newproduct():
+    current_arr = arr
+    len_current_arr = len(current_arr)
+    if len_current_arr !=0:
+        element_number= random.randrange(len_current_arr)
+        chosenfile = current_arr[element_number]
+        img_url= f"<img src=/static/img/{chosenfile}/>"
+        flash(f"Your files {current_arr}, element_number: {element_number}")
+        #current_arr.pop(element_number)
+        del current_arr[element_number];
+        len_current_arr -=1
+    elif len_current_arr == 0:
+        chosenfile = ''
+        img_url = f'<h3>No more products to generate</h3>'
+    else:
+        img_url = f'<h3>Generate Product to start playing</h3>'
+    return redirect(url_for("home", img_url=img_url))
+
 @app.route("/logout", methods = ['POST', 'GET'])
 def logout():
     session.pop("user", None)
@@ -87,9 +111,9 @@ def handleMessage(msg):
     if "user" in session:
         user = session["user"]
         print('Message: ' + msg)
-        send(user + ': ' + msg, broadcast=True)
+        send(user + ':<br>' + msg, broadcast=True)
     else:
-        send('You need a session name! Please create a session name.')
+        send('<span style="background-color:orange; width:100%">You need a session name! Please create a session name.</span>')
 
 @socketio.on('join')
 def on_join(data):

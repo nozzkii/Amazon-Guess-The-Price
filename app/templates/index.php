@@ -15,7 +15,7 @@
    });
 
    socket.on('message', function(msg) {
-		$("#messages").append('<li class="msg">' +msg+'</li>');
+		$("#messages").append('<li class="msg">'+msg+'</li>');
 		console.log('Received message');
 	});
 
@@ -66,7 +66,11 @@
       <input type=submit value="Delete Cookie"/>
       </form>
       <div class="screen">
-        <img  src="/static/img/product_screenshot.png" alt="My picture" />
+      {% if img_url %}
+        {{img_url}}
+      {% else %}
+        <p>Start generating products</p>
+      {% endif %}
       </div>
       </div>
       <div class="right-section">
@@ -86,7 +90,11 @@
       <p>User {{member.user}}</p>
       {% endfor %}
     </div>
+    {% if file_count > 0 %}
     <p>There are {{file_count}} screenshots in /static/img</p>
+    {% else %}
+    <p>There are 0 screenshots in /static/img</p>
+    {% endif %}
     <div class="chatfield">
       <p>{{user}}</p><ul id="messages"></ul>
     </div>
@@ -94,6 +102,9 @@
       <input type="text" id="myMessage">
       <button id="sendbutton">Send</button>
     </div>
+    <form action = "/newproduct" method = "POST">
+      <button id="product">Generate Amazon Product</button>
+    </form>
   </div>
     </div>
 {% endblock %}
