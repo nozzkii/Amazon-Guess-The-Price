@@ -83,6 +83,7 @@ def user():
 
 @app.route("/newproduct", methods = ['POST', 'GET'])
 def newproduct():
+    global arr
     current_arr = arr
     len_current_arr = len(current_arr)
     if len_current_arr !=0:
@@ -94,11 +95,13 @@ def newproduct():
         del current_arr[element_number];
         len_current_arr -=1
     elif len_current_arr == 0:
+        arr = os.listdir('/usr/src/app/static/img')
         chosenfile = ''
         img_url = f'<h3>No more products to generate</h3>'
     else:
         img_url = f'<h3>Generate Product to start playing</h3>'
     return redirect(url_for("home", img_url=img_url))
+
 
 @app.route("/logout", methods = ['POST', 'GET'])
 def logout():

@@ -69,7 +69,7 @@
       {% if img_url %}
         {{img_url}}
       {% else %}
-        <p>Start generating products</p>
+        <h3>Start generating products</h3>
       {% endif %}
       </div>
       </div>
