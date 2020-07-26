@@ -4,8 +4,6 @@ from flask import Flask, render_template, redirect, url_for, session, request, m
 from datetime import timedelta
 from flask_socketio import SocketIO, send
 from plugin.cookie import cookieconf
-from db.sql_data import *
-import mysql.connector
 
 app = Flask(__name__, static_url_path='/static')
 app.register_blueprint(cookieconf, url_prefix="")
