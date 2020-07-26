@@ -3,38 +3,16 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="static/js/socket.js"></script>
     </head>
-{% block content %}
-      <script type="text/javascript">
-      $(document).ready(function() {
-
-	       var socket = io.connect('localhost:5000');
-
-   socket.on('connect', function() {
-       socket.emit('my event', {data: 'I\'m connected!'});
-   });
-
-   socket.on('message', function(msg) {
-		$("#messages").append('<li class="msg">'+msg+'</li>');
-		console.log('Received message');
-	});
-
-
-
-	$('#sendbutton').on('click', function() {
-		socket.send($('#myMessage').val());
-		$('#myMessage').val('');
-	});
-
-                       });
-      </script>
+    {% block content %}
       <div class="header">
       <h1>Guess The Price</h1>
       </div>
       <div class="row">
       <div class="left-section">
       <div class="four-column">
-      <form action="#" method="POST" class=formholder"">
+      <form id="login_session" action="#" method="POST" class=formholder"">
       <h2>Session Creator</h2>
       <p>Name:</p>
       <input type=text name="nm"/>
@@ -65,12 +43,7 @@
       <h2>Delete Cookie</h2>
       <input type=submit value="Delete Cookie"/>
       </form>
-      <div class="screen">
-      {% if img_url %}
-        {{img_url}}
-      {% else %}
-        <h3>Start generating products</h3>
-      {% endif %}
+      <div id="img_url" class="screen">
       </div>
       </div>
       <div class="right-section">
@@ -98,12 +71,19 @@
     <div class="chatfield">
       <p>{{user}}</p><ul id="messages"></ul>
     </div>
-    <div class="chatform">
       <input type="text" id="myMessage">
-      <button id="sendbutton">Send</button>
-    </div>
-    <form action = "/newproduct" method = "POST">
+      <button id="sendButton">Send</button>
+      <button id="createScreenshot">Generate Screenshot</button>
+      <!--<form action = "/newproduct" method = "POST">
       <button id="product">Generate Amazon Product</button>
+      </form>-->
+    <form action = "" method = "POST">
+      <label for="fname">Price:</label><br>
+      <input type="text" value="">
+      <input type="submit" id="productbutton" value="Send">
+    </form>
+    <form id="createproduct" action = "#" method = "POST">
+      <input type="submit" value="Socket Product">
     </form>
   </div>
     </div>

@@ -1,4 +1,4 @@
 MYSQL_HOST = 'localhost'
-MYSQL_USER = 'admin'
-MYSQL_PASSWORD = 'test'
-MYSQL_DB = 'amazon'
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = 'root'
+MYSQL_DB = 'mydb'

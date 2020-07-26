@@ -5,13 +5,15 @@ services:
 
   db-data:
     image: mysql:latest
+    env_file:
+     - .env
     environment:
       - NODE_ENV
     ports:
-      - 3351:3306
+      - 3306:3306
     volumes:
       - mysql:/var/lib/mysql
-    restart: always
+      - ./db:/docker-entrypoint-initdb.d/:ro
 
   flask:
     build: ./app
