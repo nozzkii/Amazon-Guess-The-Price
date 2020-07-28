@@ -13,7 +13,7 @@ import (
 	"github.com/chromedp/chromedp"
 )
 
-const testProduct = "https://www.amazon.de/dp/B07MK5JWGN"
+const testProduct = "https://www.amazon.de/AmazonBasics-Performance-Alkaline-Batteries-100-Pack/dp/B00O869KJE"
 
 func main() {
 	ctx, cancel := chromedp.NewContext(context.Background())
@@ -26,6 +26,7 @@ func main() {
 	filename := "./../../../../static/img/product_screenshot"
 
 	matches, err := filepath.Glob(filename + "*.png")
+
 
 	if err == nil {
 
@@ -52,7 +53,7 @@ func main() {
 
 func screenshot(urlstr string, res *[]byte) chromedp.Tasks {
 	return chromedp.Tasks{
-		chromedp.Navigate(urlstr),x
+		chromedp.Navigate(urlstr),
 		chromedp.ActionFunc(func(ctx context.Context) error {
 			err := emulation.SetDeviceMetricsOverride(1200, 1000, 1, false).
 				WithScreenOrientation(&emulation.ScreenOrientation{
