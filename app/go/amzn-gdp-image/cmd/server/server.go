@@ -27,17 +27,6 @@ func main() {
 
 	matches, err := filepath.Glob(filename + "*.png")
 
-
-	/*if _, err := os.Stat("product_screenshot.png"); err == nil {
-
-		if err := chromedp.Run(ctx, screenshot(testProduct, &buf)); err != nil {
-			log.Fatal(err)
-		}
-		if err := ioutil.WriteFile("product_screenshot2.png", buf, 0644); err != nil {
-			log.Fatal(err)
-		}*/
-  // path/to/whatever exists
-
 	if err == nil {
 
 		filenumber := strconv.Itoa(len(matches) + 1)
@@ -63,7 +52,7 @@ func main() {
 
 func screenshot(urlstr string, res *[]byte) chromedp.Tasks {
 	return chromedp.Tasks{
-		chromedp.Navigate(urlstr),
+		chromedp.Navigate(urlstr),x
 		chromedp.ActionFunc(func(ctx context.Context) error {
 			err := emulation.SetDeviceMetricsOverride(1200, 1000, 1, false).
 				WithScreenOrientation(&emulation.ScreenOrientation{
