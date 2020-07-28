@@ -40,7 +40,7 @@ body {
   float:left;
   padding: 20px 5%;
   width: 15%;
-  height: auto;
+  height: 100px;
   /*padding: 20px;*/
 }
 .screen{
@@ -98,7 +98,6 @@ h1, h2, p{
 	height: 0;
 	border-left: 20px solid transparent;
 	border-right: 20px solid transparent;
-
 	border-bottom: 15px solid #ECF0F1;
   left: 10%;
   position: absolute;

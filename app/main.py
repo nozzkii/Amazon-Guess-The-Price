@@ -4,6 +4,8 @@ from flask import Flask, render_template, redirect, url_for, session, request, m
 from datetime import timedelta
 from flask_socketio import SocketIO, send
 from plugin.cookie import cookieconf
+from flask_sqlalchemy import SQLAlchemy
+import pymysql
 
 app = Flask(__name__, static_url_path='/static')
 app.register_blueprint(cookieconf, url_prefix="")
@@ -11,6 +13,26 @@ app.register_blueprint(cookieconf, url_prefix="")
 
 app.config["SECRET_KEY"] = "jhsdkfhskjdfhskf"
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:test@db-data/mydb'
+
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+
+    def __init__(self, username, email):
+        self.username = username
+        self.email = email
+
+    def __repr__(self):
+        return '<User %r>' % self.username
+
+admin = User('admin', 'tai@test.de')
+
+db.create_all()
+db.session.add(admin)
 
 socketio = SocketIO(app)
 

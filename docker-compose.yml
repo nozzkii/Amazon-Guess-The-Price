@@ -13,10 +13,12 @@ services:
       - 3306:3306
     volumes:
       - mysql:/var/lib/mysql
-      - ./db:/docker-entrypoint-initdb.d/:ro
+      - ./db/my.cnf:/etc/mysql/my.cnf
 
   flask:
     build: ./app
+    links:
+      - db-data
     depends_on:
       - db-data
     volumes:
