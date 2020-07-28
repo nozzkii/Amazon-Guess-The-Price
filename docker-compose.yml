@@ -19,8 +19,6 @@ services:
     build: ./app
     links:
       - db-data
-    depends_on:
-      - db-data
     volumes:
       - ./app:/usr/src/app
     ports:
