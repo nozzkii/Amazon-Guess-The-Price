@@ -75,7 +75,7 @@ def home():
         session.permanent = True
         return redirect(url_for("user"))
     else:
-        return render_template("index.php", group=group, file_count=file_count, img_url=request.args.get('img_url'))
+        return render_template("index.html", group=group, file_count=file_count, img_url=request.args.get('img_url'))
 
 
 @app.route("/lobby")
@@ -83,15 +83,15 @@ def lobby():
     if "user" in session:
         user = session["user"]
         message = f"<p>You are logged in as {user}</p>"
-        return render_template("lobby.php", message=message)
+        return render_template("lobby.html", message=message)
     else:
         message = f"<p>You are not logged in</p>"
-        return render_template("lobby.php", message=message)
+        return render_template("lobby.html", message=message)
 
 
 @app.route("/letsplay")
 def letsplay():
-    return render_template("letsplay.php")
+    return render_template("letsplay.html")
 
 
 @app.route("/user")
