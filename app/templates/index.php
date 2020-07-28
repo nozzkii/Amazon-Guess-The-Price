@@ -71,20 +71,21 @@
     <div class="chatfield">
       <p>{{user}}</p><ul id="messages"></ul>
     </div>
+    <div class="right-side-el">
       <input type="text" id="myMessage">
-      <button id="sendButton">Send</button>
-      <button id="createScreenshot">Generate Screenshot</button>
+      <button id="sendButton">SEND</button>
+      <br><br>
+      <form action="" method ="GET">
+        <label for="fname">Price:</label><br>
+        <input type="text" value="">
+        <input type="submit" id="productbutton" value="ESTIMATE">
+      </form>
       <!--<form action = "/newproduct" method = "POST">
       <button id="product">Generate Amazon Product</button>
       </form>-->
-    <form action = "" method = "POST">
-      <label for="fname">Price:</label><br>
-      <input type="text" value="">
-      <input type="submit" id="productbutton" value="Send">
-    </form>
-    <form id="createproduct" action = "#" method = "POST">
-      <input type="submit" value="Socket Product">
-    </form>
+      <br><br><br>
+      <button id="createScreenshot">GENERATE NEXT PRODUCT</button>
+  </div>
   </div>
     </div>
 {% endblock %}

@@ -72,9 +72,12 @@ form{
 .msg {
     width: 100%;
     word-break: break-all;
-
 }
 
+
+.right-side-el{
+  margin: 0 10%;
+}
 
 /* Clear floats after image containers */
 .row::after {
