@@ -66,9 +66,8 @@ def redirecthome():
 
 @app.route("/home", methods=['POST', 'GET'])
 def home():
-    path, dirs, files = next(os.walk("/usr/src/app/static/img"))
-    file_count = len(files)
-    arr = os.listdir('/usr/src/app/static/img')
+    global file_count
+    global arr
     if request.method == "POST" and request.form['nm'] != 0 :
         user = request.form["nm"]
         session["user"] = user
