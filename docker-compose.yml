@@ -4,7 +4,7 @@ version: '3.8'
 services:
 
   db-data:
-    image: mysql:latest
+    image: mysql:8
     env_file:
      - .env
     environment:
