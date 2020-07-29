@@ -1,5 +1,5 @@
 ## Frontend Update:
-![frontend.png](frontend.png.png "frontend.png")
+![frontend.png](frontend.png "frontend.png")
 
 to connect your own database with the app, you need to create a .env file
 
