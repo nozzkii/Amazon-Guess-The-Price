@@ -17,12 +17,12 @@ services:
 
   flask:
     build: ./app
+    ports:
+      - 5000:5000
     links:
       - db-data
     volumes:
       - ./app:/usr/src/app
-    ports:
-      - 5000:5000
-
+    restart: unless-stopped
 volumes:
   mysql:
