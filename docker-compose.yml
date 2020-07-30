@@ -3,17 +3,29 @@ version: '3.8'
 
 services:
 
+  frontend:
+    container_name: "reactjs"
+    build:
+      context: ./frontend/
+      dockerfile: reactjs
+    environment:
+      env_file: react.env
+      NODE_ENV: development
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./frontend:/usr/src/app
+
   db-data:
     image: mysql:8
-    env_file:
-     - .env
+    env_file: db.env
     environment:
-      - NODE_ENV
+      NODE_ENV: development
     ports:
       - 3306:3306
     volumes:
       - mysql:/var/lib/mysql
-      - ./db/my.cnf:/etc/mysql/my.cnf
+      - ./db-conf/my.cnf:/etc/mysql/my.cnf
 
   flask:
     build: ./app
