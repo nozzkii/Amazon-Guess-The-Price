@@ -6,15 +6,13 @@ services:
   frontend:
     container_name: "reactjs"
     build:
-      context: ./frontend/
+      context: ./frontend
       dockerfile: reactjs
-    environment:
-      env_file: react.env
-      NODE_ENV: development
+    container_name: hello-docker-react
     ports:
-      - '3000:3000'
+      - 3000:3000
     volumes:
-      - ./frontend:/usr/src/app
+      - ./frontend:/home/node
 
   db-data:
     image: mysql:8
@@ -26,6 +24,8 @@ services:
     volumes:
       - mysql:/var/lib/mysql
       - ./db-conf/my.cnf:/etc/mysql/my.cnf
+    cap_add:
+      - SYS_NICE
 
   flask:
     build: ./app

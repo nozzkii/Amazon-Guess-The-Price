@@ -1,15 +1,13 @@
-FROM node:14.6
+FROM node:12.18
 
-# Prepare app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app/
+# Create app directory
+WORKDIR /usr/src/app
+# Install app dependencies
+COPY package*.json ./
 
-# Install dependencies
-COPY package.json /usr/src/app/package.json
-RUN npm install --cache /tmp/empty-cache
-RUN npm install --silent
-
-ADD . /usr/src/app/
+RUN npm install
+# Copy app source code
+COPY . .
 
 EXPOSE 3000
-CMD [ "npm", "start" ]
+CMD ["npm", "start"]
