@@ -86,7 +86,7 @@ def home():
         user = request.form["nm"]
         session["user"] = user
         session.permanent = True
-        return redirect("http:localhost:3000", code=302)
+        return redirect(url_for("user"))
     else:
         return render_template("index.html", group=group, file_count=file_count, img_url=request.args.get('img_url'))
 
