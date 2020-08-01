@@ -33,8 +33,8 @@ class User(db.Model):
 
 db.create_all()
 
-#admin = User('admin', 'tai@test.de')
-#db.session.add(admin)
+Tai = User('Tai', 23)
+db.session.add(Tai)
 
 socketio = SocketIO(app)
 

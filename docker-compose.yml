@@ -3,17 +3,6 @@ version: '3.8'
 
 services:
 
-  frontend:
-    container_name: "reactjs"
-    build:
-      context: ./frontend
-      dockerfile: reactjs
-    container_name: hello-docker-react
-    ports:
-      - 3000:3000
-    volumes:
-      - ./frontend:/home/node
-
   db-data:
     image: mysql:8
     env_file: db.env
