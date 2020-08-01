@@ -17,7 +17,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:test@db-data/mydb
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
-db = SQLAlchemy(app)
+'''db = SQLAlchemy(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -31,11 +31,12 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+
 db.create_all()
 
 Tai = User('Tai', 23)
 db.session.add(Tai)
-
+'''
 socketio = SocketIO(app)
 
 path, dirs, files = next(os.walk("/usr/src/app/static/img"))
@@ -49,6 +50,13 @@ clients = []
 
 # count screenshots
 
+
+@app.route("/api")
+def api():
+    return{
+    'userid': 1,
+    'title': 'Flask react application',
+    }
 
 group = [
     {
@@ -65,6 +73,10 @@ group = [
 @app.route("/")
 def redirecthome():
     return redirect(url_for("home"))
+
+'''@app.route("/")
+def redirecthome():
+    return render_template("index.html", token="HelloFlaskreact")'''
 
 @app.route("/home", methods=['POST', 'GET'])
 def home():
