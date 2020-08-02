@@ -1,0 +1,187 @@
+@import "compass/css3";
+/*css from react*/
+*{
+  margin: 0;
+  padding: 0
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Sans-serif;
+  background: #2c3e50;
+}
+
+.left-section{
+  width: 65%;
+  height: 100%;
+  margin-left: 5%;
+  margin-right:0;
+  background: #34495e;
+  float: left;
+}
+.right-section{
+  width: 25%;
+  margin-right:5%;
+  margin-left:0;
+  height: 100%;
+  background: #005580;
+  float: left;
+}
+
+.flash{color: red}
+
+.group{
+  display: block;
+  margin:20px;
+}
+
+.four-column{
+  float:left;
+  padding: 20px 5%;
+  width: 15%;
+  height: 100px;
+  /*padding: 20px;*/
+}
+.screen{
+  background: #fff;
+  height: 400px;
+  /*display: flex;*/
+  width: 100%;
+  overflow: auto;
+}
+
+.chatform{
+}
+
+.chatfield{
+  background: #fff;
+  height:200px;
+  margin: 10%;
+  overflow: auto;
+}
+
+
+img {max-width:100%; height:auto}
+
+form{
+  width: 100%;
+  float:left;
+}
+
+.msg {
+    width: 100%;
+    word-break: break-all;
+}
+
+
+.right-side-el{
+  margin: 0 10%;
+}
+
+/* Clear floats after image containers */
+.row::after {
+ content: "";
+ clear: both;
+ display: table;
+}
+
+h1, h2, p{
+  color: #ecf0f1;
+}
+
+.login {
+  position: relative;
+  width: 350px;
+  display: none;
+}
+
+.arrow-up {
+	width: 0;
+	height: 0;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-bottom: 15px solid #ECF0F1;
+  left: 10%;
+  position: absolute;
+  top: -10px;
+}
+
+.header {
+  background: #001a33;
+  width: 100%;
+  height: 100px;
+  padding-top: 50px;
+  /*border-radius: 5px;
+  padding: 10px 0 10px 10px;
+  margin: 0 5%;*/
+  text-align: center;
+}
+
+a {
+  color: #ecf0f1;
+  text-decoration: none;
+
+  &:hover {
+      color: #1abc9c;
+    }
+}
+
+/**@media screen and (max-width: 500px) {
+  .column {
+    width: 100%;
+  }
+}**/
+
+@media (max-width: 400px) {
+  .four-column{
+    float:left;
+    padding: 20px 5%;
+    width: 15%;
+    height: auto;
+    /*padding: 20px;*/
+    background-color: red;
+  }
+}
+
+@media (max-width: 480px) {
+.four-column{
+  float:left;
+  padding: 20px 5%;
+  width: 100%;
+  height: auto;
+  /*padding: 20px;*/
+
+}
+
+@media (min-width: 481px) (max-width: 800px) {
+.four-column{
+  float:left;
+  padding: 20px 5%;
+  width: 100%;
+  height: auto;
+  /*padding: 20px;*/
+
+}
+
+@media (min-width: 801px) and (max-width: 1024px) {
+.four-column{
+  float:left;
+  padding: 20px 5%;
+  width: 100%;
+  height: auto;
+  /*padding: 20px;*/
+  /*background-color: red;*/
+}
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+.four-column{
+  float:left;
+  padding: 20px 5%;
+  width: 100%;
+  height: auto;
+  /*padding: 20px;*/
+  /*background-color: red;*/
+}
+}

@@ -1,16 +1,19 @@
 import os
 import random
 import pymysql
-from flask import Flask, render_template, redirect, url_for, session, request, make_response, flash
+from flask import Flask, jsonify, render_template, redirect, url_for, session, request, make_response, flash
 from datetime import timedelta
 from flask_socketio import SocketIO, send
 from plugin.cookie import cookieconf
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 app = Flask(__name__, static_url_path='/static')
+CORS(app)
 app.register_blueprint(cookieconf, url_prefix="")
-#connection = mysql.connector.connect(user=MYSQL_USER, password= MYSQL_PASSWORD, host=MYSQL_HOST, port='3306', database=MYSQL_DB)
 
+#connection = mysql.connector.connect(user=MYSQL_USER, password= MYSQL_PASSWORD, host=MYSQL_HOST, port='3306', database=MYSQL_DB)
+app.config['CORS_HEADERS'] = 'Content-Type'
 app.config["SECRET_KEY"] = "jhsdkfhskjdfhskf"
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:test@db-data/mydb'
@@ -86,6 +89,7 @@ def home():
         user = request.form["nm"]
         session["user"] = user
         session.permanent = True
+        #return jsonify(user)
         return redirect(url_for("user"))
     else:
         return render_template("index.html", group=group, file_count=file_count, img_url=request.args.get('img_url'))
@@ -193,6 +197,18 @@ def error_handler(e):
 @socketio.on_error_default  # handles all namespaces without an explicit error handler
 def default_error_handler(e):
     pass
+
+
+@app.route('/', methods=['POST'])
+def api_login():
+    global file_count
+    global arr
+    if request.method == "POST" and request.form['nm'] != 0 :
+        user = request.form["nm"]
+        session["user"] = user
+        session.permanent = True
+        #return jsonify(user)
+        return jsonify(user)
 
 
 if __name__ == '__main__':

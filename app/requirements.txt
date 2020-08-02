@@ -3,3 +3,4 @@ flask-socketio==4.3.1
 flask_sqlalchemy==2.4.4
 pymysql==0.10.0
 cryptography==3.0
+flask-cors==3.0.8 
