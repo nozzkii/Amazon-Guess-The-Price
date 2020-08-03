@@ -1,31 +1,31 @@
-import React, {Component}from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import Users from './Components/users/users'
+import Participants from './Components/participants/participants'
 
 
 class App extends Component {
 
 
-
   constructor(props) {
      super(props);
-     this.state = {value: ''};
+     this.state = {
+      user : "",
+      loading: true
+      };
      this.handleChange = this.handleChange.bind(this);
      this.handleSubmit = this.handleSubmit.bind(this);
 
-     const title = React.createElement('h1', {}, 'My First React Code');
-
-
    }
 
-
   handleChange(event) {
-    this.setState({value: event.target.value});  }
+    this.setState({value: event.target.value});
+  }
 
 
   handleSubmit(event) {
     console.log("making request")
-    fetch("/home", {
+    fetch("/api/user", {
         method:"POST",
         cache: "no-cache",
         headers:{
@@ -34,36 +34,35 @@ class App extends Component {
         body:JSON.stringify(this.state.value)
         }
       ).then(response => {
-
         return response.json()
       }).then(json => {
-
-        this.setState({playerName: json()})
+      console.log=(json)
+      this.setState({user: json})
       })
 
   }
 
-  /*async componentDidMount(){
-     fetch('http://localhost:5000/home')
-     const response = await fetch(url)
-   }*/
 
+  /*componentDidMount() {
+    this.setState({ isLoading: true });
+    fetch('/api/group')
+      .then(response => response.json())
+      .then(data => this.setState({ hits: data.hits }));
+  }*/
 
 
 render(){
   return (
-
     <div>
-    <form id="login_session" action="/" method="POST" class="formholder">
+    <form id="login_session" action="/api/user" method="POST" onSubmit={this.handleSubmit}>
     <h2>Session Creator</h2>
     <p>Name:</p>
     <input type="text" name="nm" />
-    <input type="submit" value="Login" value={this.state.value} onChange={this.handleChange}/>
+    <input type="submit" value="Login" onChange={this.handleChange}/>
     </form>
-    /*<p>USER: {this.state.user}</p>*/
     <Users />
+    <Participants />
     </div>
-
   );
 
 }

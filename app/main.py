@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
 app = Flask(__name__, static_url_path='/static')
-CORS(app)
+CORS(app, resources=r'/api/*')
 app.register_blueprint(cookieconf, url_prefix="")
 
 #connection = mysql.connector.connect(user=MYSQL_USER, password= MYSQL_PASSWORD, host=MYSQL_HOST, port='3306', database=MYSQL_DB)
@@ -61,7 +61,7 @@ def api():
     'title': 'Flask react application',
     }
 
-group = [
+participant = [
     {
         'user': 'Johne doe',
         'id': '23'
@@ -92,7 +92,7 @@ def home():
         #return jsonify(user)
         return redirect(url_for("user"))
     else:
-        return render_template("index.html", group=group, file_count=file_count, img_url=request.args.get('img_url'))
+        return render_template("index.html", group=participant, file_count=file_count, img_url=request.args.get('img_url'))
 
 
 @app.route("/lobby")
@@ -199,16 +199,24 @@ def default_error_handler(e):
     pass
 
 
-@app.route('/', methods=['POST'])
-def api_login():
-    global file_count
-    global arr
+@app.errorhandler(500)
+def server_error(e):
+    logging.exception('An error occurred during a request. %s', e)
+    return "An internal error occured", 500
+
+@app.route('/api/user', methods=['POST', 'GET'])
+def api_user():
     if request.method == "POST" and request.form['nm'] != 0 :
         user = request.form["nm"]
         session["user"] = user
         session.permanent = True
         #return jsonify(user)
-        return jsonify(user)
+        return jsonify({'user' : user})
+
+@app.route('/api/participant', methods=['POST', 'GET'])
+def api_participant():
+    global participant
+    return jsonify(participant)
 
 
 if __name__ == '__main__':
