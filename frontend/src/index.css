@@ -1,13 +1,97 @@
-body {
+
+*{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Sans-serif;
+  background: #2c3e50;
+}
+
+
+img {max-width:100%; height:auto}
+
+form{
+  width: 100%;
+  float:left;
+}
+
+
+
+h1, h2, p{
+  color: #ecf0f1;
+}
+
+
+a {
+  color: #ecf0f1;
+  text-decoration: none;
+
+  &:hover {
+      color: #1abc9c;
+    }
+}
+
+/**@media screen and (max-width: 500px) {
+  .column {
+    width: 100%;
+  }
+}**/
+
+@media (max-width: 400px) {
+  .four-column{
+    float:left;
+    padding: 20px 5%;
+    width: 15%;
+    height: auto;
+    /*padding: 20px;*/
+    background-color: red;
+  }
+}
+
+@media (max-width: 480px) {
+.four-column{
+  float:left;
+  padding: 20px 5%;
+  width: 100%;
+  height: auto;
+  /*padding: 20px;*/
+
+}
+}
+
+@media (min-width: 481px) (max-width: 800px) {
+.four-column{
+  float:left;
+  padding: 20px 5%;
+  width: 100%;
+  height: auto;
+  /*padding: 20px;*/
+
+}
+}
+
+@media (min-width: 801px) and (max-width: 1024px) {
+.four-column{
+  float:left;
+  padding: 20px 5%;
+  width: 100%;
+  height: auto;
+  /*padding: 20px;*/
+  /*background-color: red;*/
+}
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+.four-column{
+  float:left;
+  padding: 20px 5%;
+  width: 100%;
+  height: auto;
+  /*padding: 20px;*/
+  /*background-color: red;*/
+}
 }

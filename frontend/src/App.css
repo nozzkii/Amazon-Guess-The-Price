@@ -1,38 +1,93 @@
-.App {
+.left-section{
+  width: 65%;
+  height: 100%;
+  margin-left: 5%;
+  margin-right:0;
+  background: #34495e;
+  float: left;
+}
+.right-section{
+  width: 25%;
+  margin-right:5%;
+  margin-left:0;
+  height: 100%;
+  background: #005580;
+  float: left;
+}
+
+.flash{color: red}
+
+.group{
+  display: block;
+  margin:20px;
+}
+
+.four-column{
+  float:left;
+  padding: 20px 5%;
+  width: 15%;
+  height: 100px;
+  /*padding: 20px;*/
+}
+.screen{
+  background: #fff;
+  height: 400px;
+  /*display: flex;*/
+  width: 100%;
+  overflow: auto;
+}
+
+.chatform{
+}
+
+.chatfield{
+  background: #fff;
+  height:200px;
+  margin: 10%;
+  overflow: auto;
+}
+
+.msg {
+    width: 100%;
+    word-break: break-all;
+}
+
+
+.right-side-el{
+  margin: 0 10%;
+}
+
+/* Clear floats after image containers */
+.row::after {
+ content: "";
+ clear: both;
+ display: table;
+}
+
+.login {
+  position: relative;
+  width: 350px;
+  display: none;
+}
+
+.arrow-up {
+	width: 0;
+	height: 0;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-bottom: 15px solid #ECF0F1;
+  left: 10%;
+  position: absolute;
+  top: -10px;
+}
+
+.header {
+  background: #001a33;
+  width: 100%;
+  height: 100px;
+  padding-top: 50px;
+  /*border-radius: 5px;
+  padding: 10px 0 10px 10px;
+  margin: 0 5%;*/
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

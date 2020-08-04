@@ -1,4 +1,3 @@
-@import "compass/css3";
 
 *{
   margin: 0;
@@ -153,6 +152,7 @@ a {
   /*padding: 20px;*/
 
 }
+}
 
 @media (min-width: 481px) (max-width: 800px) {
 .four-column{
@@ -162,6 +162,7 @@ a {
   height: auto;
   /*padding: 20px;*/
 
+}
 }
 
 @media (min-width: 801px) and (max-width: 1024px) {

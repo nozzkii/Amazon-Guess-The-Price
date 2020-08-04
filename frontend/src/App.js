@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import Users from './Components/users/users'
 import Participants from './Components/participants/participants'
+import Screen from './Components/screen/screen'
 
 
 class App extends Component {
@@ -53,15 +54,24 @@ class App extends Component {
 
 render(){
   return (
-    <div>
+    <div class="row">
+    <div class="header">
+    <h1>Guess The Price</h1>
+    </div>
+    <div class="left-section">
     <form id="login_session" action="/api/user" method="POST" onSubmit={this.handleSubmit}>
     <h2>Session Creator</h2>
     <p>Name:</p>
     <input type="text" name="nm" />
     <input type="submit" value="Login" onChange={this.handleChange}/>
     </form>
+    </div>
+    <Screen />
+    <div class="right-section">
     <Users />
     <Participants />
+    </div>
+
     </div>
   );
 

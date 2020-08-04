@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import './users.css';
 
 
 
-class Users extends Component {
+class Screen extends Component {
 
 
 
@@ -11,6 +10,7 @@ render(){
   return (
 
     <div>
+    <h1>User</h1>
     </div>
 
   );
@@ -19,4 +19,4 @@ render(){
 
 }
 
-export default Users;
+export default Screen;

@@ -54,7 +54,7 @@ class Content extends React.Component {
       return (
          <div>
             <div>{this.props.componentData.id}</div>
-            <div>{this.props.componentData.user}</div>
+            <div>User: {this.props.componentData.user}</div>
          </div>
       );
    }
