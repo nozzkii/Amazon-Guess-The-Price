@@ -20,12 +20,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:test@db-data/mydb
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
-'''db = SQLAlchemy(app)
+db = SQLAlchemy(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    score = db.Column(db.Integer, unique=True, nullable=False)
+    score = db.Column(db.Integer, nullable=True)
 
     def __init__(self, username, score):
         self.username = username
@@ -34,12 +34,14 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+class History(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    message = db.Column(db.String(500), nullable=False)
+
 
 db.create_all()
 
-Tai = User('Tai', 23)
-db.session.add(Tai)
-'''
+
 socketio = SocketIO(app)
 
 path, dirs, files = next(os.walk("/usr/src/app/static/img"))
@@ -85,25 +87,29 @@ def redirecthome():
 def home():
     global file_count
     global arr
+    messages=History.query.all()
     if request.method == "POST" and request.form['nm'] != 0 :
         user = request.form["nm"]
         session["user"] = user
+        dbuser = User(user)
+        db.session.add(dbuser)
+        db.session.commit()
         session.permanent = True
         #return jsonify(user)
         return redirect(url_for("user"))
     else:
-        return render_template("index.html", group=participant, file_count=file_count, img_url=request.args.get('img_url'))
+        return render_template("index.html", group=participant, file_count=file_count, img_url=request.args.get('img_url'), messages=messages)
 
 
 @app.route("/lobby")
 def lobby():
     if "user" in session:
         user = session["user"]
-        message = f"<p>You are logged in as {user}</p>"
-        return render_template("lobby.html", message=message)
+        notification = f"<p>You are logged in as {user}</p>"
+        return render_template("lobby.html", notification=notification)
     else:
-        message = f"<p>You are not logged in</p>"
-        return render_template("lobby.html", message=message)
+        notification = f"<p>You are not logged in</p>"
+        return render_template("lobby.html", notification=notification)
 
 
 @app.route("/letsplay")
@@ -161,6 +167,10 @@ def handleMessage(msg):
         user = session["user"]
         print('Message: ' + msg)
         send(user + ':<br>' + msg, broadcast=True)
+        message = History(message=msg)
+        db.session.add(message)
+        db.session.commit()
+        console.log("sent db values")
     else:
         send('<span style="background-color:orange; width:100%">You need a session name! Please create a session name.</span>')
 

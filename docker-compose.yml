@@ -4,10 +4,11 @@ version: '3.8'
 services:
 
   db-data:
-    image: mysql:8
+    image: mysql:latest
     env_file: db.env
     environment:
       NODE_ENV: development
+    command: mysqld --default-authentication-plugin=mysql_native_password
     ports:
       - 3306:3306
     volumes:
