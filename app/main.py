@@ -91,9 +91,6 @@ def home():
     if request.method == "POST" and request.form['nm'] != 0 :
         user = request.form["nm"]
         session["user"] = user
-        dbuser = User(user)
-        db.session.add(dbuser)
-        db.session.commit()
         session.permanent = True
         #return jsonify(user)
         return redirect(url_for("user"))
