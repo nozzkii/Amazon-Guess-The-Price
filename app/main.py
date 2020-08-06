@@ -218,7 +218,7 @@ def api_user():
         session["user"] = user
         session.permanent = True
         #return jsonify(user)
-        return jsonify({'user' : user})
+        return jsonify({'user' : session["user"]})
 
 @app.route('/api/participant', methods=['POST', 'GET'])
 def api_participant():

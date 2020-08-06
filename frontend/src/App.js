@@ -56,12 +56,12 @@ class App extends Component {
 
 render(){
   return (
-    <div class="row">
-    <div class="header">
+    <div className="row">
+    <div className="header">
     <h1>Guess The Price</h1>
     </div>
-    <div class="left-section">
-    <form onSubmit={this.handleSubmit} id="login_session" action="/api/user" method="POST">
+    <div className="left-section">
+    <form onSubmit={this.handleSubmit} id="login_session" method="POST">
     <h2>Session Creator</h2>
     <p>Name:</p>
     <input type="text" name="nm" />
@@ -69,7 +69,8 @@ render(){
     </form>
     <Screen />
     </div>
-    <div class="right-section">
+    <div className="right-section">
+    <h1> Player Name: {this.state.user} </h1>
     <Users />
     <Participants />
     <Chat />

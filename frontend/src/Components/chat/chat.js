@@ -9,7 +9,7 @@ class Chat extends Component {
 render(){
   return (
     <div>
-    <div class="chatfield">
+    <div className="chatfield">
       <li></li>
       <p></p>
       <ul id="messages"></ul>
