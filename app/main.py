@@ -9,7 +9,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
 
-#eventlet.monkey_patch()
 app = Flask(__name__, static_url_path='/static')
 CORS(app, resources=r'/api/*')
 app.register_blueprint(cookieconf, url_prefix="")
@@ -21,7 +20,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:test@db-data/mydb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-
+socketio = SocketIO(app)
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -43,8 +42,6 @@ class History(db.Model):
 
 db.create_all()
 
-
-socketio = SocketIO(app)
 
 path, dirs, files = next(os.walk("/usr/src/app/static/img"))
 file_count = len(files)
@@ -237,7 +234,3 @@ def api_user():
 def api_participant():
     global participant
     return jsonify(participant)
-
-
-if __name__ == '__main__':
-    socketio.run(app.run(debug=True, host='0.0.0.0', threaded=True))
