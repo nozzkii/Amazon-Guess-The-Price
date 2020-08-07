@@ -4,7 +4,7 @@
   padding: 0
 }
 
-body {
+body{
   margin: 0;
   padding: 0;
   font-family: Sans-serif;
@@ -21,7 +21,7 @@ body {
 }
 .right-section{
   width: 25%;
-  margin-right:5%;
+  margin-right:0;
   margin-left:0;
   height: 100%;
   background: #005580;
@@ -50,29 +50,33 @@ body {
   overflow: auto;
 }
 
-.chatform{
-}
-
 .chatfield{
   background: #fff;
   height:200px;
-  margin: 10%;
   overflow: auto;
 }
 
 
-img {max-width:100%; height:auto}
+
+img{max-width:100%; height:auto}
 
 form{
   width: 100%;
   float:left;
 }
 
-.msg {
+.msg{
     width: 100%;
     word-break: break-all;
 }
 
+
+.timer{
+  background: #fff;
+  height: 50px;
+  width: 100%;
+  color: #000
+}
 
 .right-side-el{
   margin: 0 10%;

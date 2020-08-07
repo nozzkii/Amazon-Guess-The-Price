@@ -55,6 +55,10 @@ clients = []
 
 # count screenshots
 
+#def timeout():
+#    console.log("Generate next product to start a new round")
+
+
 
 @app.route("/api")
 def api():
@@ -78,10 +82,6 @@ participant = [
 @app.route("/")
 def redirecthome():
     return redirect(url_for("home"))
-
-'''@app.route("/")
-def redirecthome():
-    return render_template("index.html", token="HelloFlaskreact")'''
 
 @app.route("/home", methods=['POST', 'GET'])
 def home():
@@ -155,6 +155,11 @@ def newproduct():
     else:
         img_url = f'<h3>Generate Product to start playing</h3>'
         socketio.emit('screenshot', {'img_url': img_url}, broadcast=True)
+    # duration is in seconds
+    #t = Timer(1 * 60, timeout)
+    #t.start()
+    #console.log(t)
+    #t.join()
     #return redirect(url_for("home", img_url=img_url))
 
 

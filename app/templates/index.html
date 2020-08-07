@@ -47,6 +47,7 @@
       </div>
       </div>
       <div class="right-section">
+        <div class="right-side-el">
     <div>
       {% with messages = get_flashed_messages() %}
       {% if messages %}
@@ -74,7 +75,6 @@
       {% endfor %}
       <p>{{user}}</p><ul id="messages"></ul>
     </div>
-    <div class="right-side-el">
       <input type="text" id="myMessage">
       <button id="sendButton">SEND</button>
       <br><br>
@@ -88,7 +88,10 @@
       </form>-->
       <br><br><br>
       <button id="createScreenshot">GENERATE NEXT PRODUCT</button>
-  </div>
+      <div class="timer" >
+        <p>TEST</p>
+      </div>
+      </div>
   </div>
     </div>
 {% endblock %}
