@@ -1,7 +1,6 @@
 import os
 import random
 import pymysql
-import eventlet
 from flask import Flask, jsonify, render_template, redirect, url_for, session, request, make_response, flash
 from datetime import timedelta
 from flask_socketio import SocketIO, send
