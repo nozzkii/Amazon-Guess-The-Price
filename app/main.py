@@ -1,6 +1,7 @@
 import os
 import random
 import pymysql
+import eventlet
 from flask import Flask, jsonify, render_template, redirect, url_for, session, request, make_response, flash
 from datetime import timedelta
 from flask_socketio import SocketIO, send
@@ -8,6 +9,8 @@ from plugin.cookie import cookieconf
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+
+#eventlet.monkey_patch()
 app = Flask(__name__, static_url_path='/static')
 CORS(app, resources=r'/api/*')
 app.register_blueprint(cookieconf, url_prefix="")
@@ -55,8 +58,17 @@ clients = []
 
 # count screenshots
 
-#def timeout():
-#    console.log("Generate next product to start a new round")
+'''def timeout():
+    console.log("Generate next product to start a new round")
+
+def startTimer():
+    #duration is in seconds
+    t = Timer(1 * 10, timeout)
+    t.start()
+    for i in range(10):
+        interval = str(10-i) + " seconds remaining"
+        time.sleep(1)
+    t.join()'''
 
 
 
@@ -87,7 +99,9 @@ def redirecthome():
 def home():
     global file_count
     global arr
+    interval = ""
     messages=History.query.all()
+    #startTimer()
     if request.method == "POST" and request.form['nm'] != 0 :
         user = request.form["nm"]
         session["user"] = user
@@ -95,7 +109,7 @@ def home():
         #return jsonify(user)
         return redirect(url_for("user"))
     else:
-        return render_template("index.html", group=participant, file_count=file_count, img_url=request.args.get('img_url'), messages=messages)
+        return render_template("index.html", group=participant, file_count=file_count, img_url=request.args.get('img_url'), messages=messages, interval=interval)
 
 
 @app.route("/lobby")
@@ -155,11 +169,6 @@ def newproduct():
     else:
         img_url = f'<h3>Generate Product to start playing</h3>'
         socketio.emit('screenshot', {'img_url': img_url}, broadcast=True)
-    # duration is in seconds
-    #t = Timer(1 * 60, timeout)
-    #t.start()
-    #console.log(t)
-    #t.join()
     #return redirect(url_for("home", img_url=img_url))
 
 
@@ -232,4 +241,4 @@ def api_participant():
 
 
 if __name__ == '__main__':
-    socketio.run(app.run(debug=True, host='0.0.0.0'))
+    socketio.run(app.run(debug=True, host='0.0.0.0', threaded=True))

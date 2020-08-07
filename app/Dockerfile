@@ -1,7 +1,7 @@
 FROM python:3.8
 MAINTAINER  "Anh Tai" <anhtai.thai@hotmail.de>
 RUN ["apt-get", "update"]
-RUN ["python", "-m", "pip", "install", "--upgrade", "pip"]
+RUN ["python3 ", "-m", "pip", "install", "--upgrade", "pip"]
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY requirements.txt /usr/src/app/
