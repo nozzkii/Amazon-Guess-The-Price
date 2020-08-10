@@ -16,11 +16,19 @@ socket.on('screenshot', function(msg) {
    $("#img_url").append(msg.img_url);
  });
 
+socket.on('countdown', function(msg) {
+    console.log("countdown");
+    $(".timer").append(msg.timespan);
+});
+
+
 $('#createScreenshot').on('click', function() {
     $('#img_url').empty();
+    socket.emit('countdown');
    socket.emit('screenshot');
-   socket.emit('countdown');
  });
+
+ socket.emit('countdown');
 
 $('#sendButton').on('click', function() {
 socket.send($('#myMessage').val());

@@ -25,6 +25,5 @@ services:
       - db-data
     volumes:
       - ./app:/usr/src/app
-    restart: unless-stopped
 volumes:
   mysql:

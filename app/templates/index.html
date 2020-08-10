@@ -39,10 +39,7 @@
       <input type=submit value="Get Cookie"/>
       </form>
       </div>
-      <form action = "/deletecookie" method = "POST">
-      <h2>Delete Cookie</h2>
-      <input type=submit value="Delete Cookie"/>
-      </form>
+      <button id="joinButton">JOIN ROOM</button>
       <div id="img_url" class="screen">
       </div>
       </div>
@@ -71,7 +68,8 @@
     {% endif %}
     <div class="chatfield">
       {% for msg in messages %}
-      <li>{{msg.message}}</li>
+
+      <li>User {{msg.uid}}<br>{{msg.message}}</li>
       {% endfor %}
       <p>{{user}}</p><ul id="messages"></ul>
     </div>
