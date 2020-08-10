@@ -19,6 +19,7 @@ socket.on('screenshot', function(msg) {
 $('#createScreenshot').on('click', function() {
     $('#img_url').empty();
    socket.emit('screenshot');
+   socket.emit('countdown');
  });
 
 $('#sendButton').on('click', function() {

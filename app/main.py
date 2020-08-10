@@ -1,6 +1,8 @@
 import os
 import random
 import pymysql
+import time
+import logging
 from flask import Flask, jsonify, render_template, redirect, url_for, session, request, make_response, flash
 from datetime import timedelta
 from flask_socketio import SocketIO, send
@@ -25,19 +27,13 @@ db = SQLAlchemy(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    score = db.Column(db.Integer, nullable=True)
-
-    def __init__(self, username, score):
-        self.username = username
-        self.score = score
-
-    def __repr__(self):
-        return '<User %r>' % self.username
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    messages=db.relationship('History', backref='owner')
 
 class History(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String(500), nullable=False)
+    uid = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
 db.create_all()
@@ -52,29 +48,6 @@ usersOnlineAvatars = []
 
 clients = []
 
-# count screenshots
-
-'''def timeout():
-    console.log("Generate next product to start a new round")
-
-def startTimer():
-    #duration is in seconds
-    t = Timer(1 * 10, timeout)
-    t.start()
-    for i in range(10):
-        interval = str(10-i) + " seconds remaining"
-        time.sleep(1)
-    t.join()'''
-
-
-
-@app.route("/api")
-def api():
-    return{
-    'userid': 1,
-    'title': 'Flask react application',
-    }
-
 participant = [
     {
         'user': 'Johne doe',
@@ -86,7 +59,6 @@ participant = [
     }
 ]
 
-
 @app.route("/")
 def redirecthome():
     return redirect(url_for("home"))
@@ -95,17 +67,21 @@ def redirecthome():
 def home():
     global file_count
     global arr
-    interval = ""
     messages=History.query.all()
-    #startTimer()
+
+    #interval = countdown()
     if request.method == "POST" and request.form['nm'] != 0 :
         user = request.form["nm"]
         session["user"] = user
         session.permanent = True
+        global sql_user
+        sql_user = User(name=user)
+        db.session.add(sql_user)
+        db.session.commit()
         #return jsonify(user)
         return redirect(url_for("user"))
     else:
-        return render_template("index.html", group=participant, file_count=file_count, img_url=request.args.get('img_url'), messages=messages, interval=interval)
+        return render_template("index.html", group=participant, file_count=file_count, img_url=request.args.get('img_url'), messages=messages)
 
 
 @app.route("/lobby")
@@ -139,6 +115,14 @@ def logout():
     flash("You have been logged out")
     return redirect(url_for("home"))
 
+@socketio.on('countdown', namespace='/')
+def countdown():
+    t = 10
+    while t > 0:
+        x = t
+        console.log(x)
+        time.sleep(1)
+        t -= 1
 
 @socketio.on('screenshot', namespace='/')
 #@app.route("/newproduct", methods=['POST', 'GET'])
@@ -174,8 +158,8 @@ def handleMessage(msg):
         user = session["user"]
         print('Message: ' + msg)
         send(user + ':<br>' + msg, broadcast=True)
-        message = History(message=msg)
-        db.session.add(message)
+        sql_message = History(owner=sql_user, message=msg)
+        db.session.add(sql_message)
         db.session.commit()
         console.log("sent db values")
     else:
@@ -187,7 +171,6 @@ def on_join(data):
     room = data['room']
     join_room(room)
     send(username + ' has entered the room.', room=room)
-
 
 @socketio.on('leave', namespace='/')
 def on_leave(data):
@@ -221,6 +204,13 @@ def server_error(e):
     logging.exception('An error occurred during a request. %s', e)
     return "An internal error occured", 500
 
+@app.route("/api")
+def api():
+    return{
+    'id': 1,
+    'title': 'Flask react application',
+    }
+
 @app.route('/api/user', methods=['POST', 'GET'])
 def api_user():
     if request.method == "POST" and request.form['nm'] != 0 :
@@ -228,9 +218,8 @@ def api_user():
         session["user"] = user
         session.permanent = True
         #return jsonify(user)
-        return jsonify({'user' : session["user"]})
+        return jsonify({session["user"]})
 
 @app.route('/api/participant', methods=['POST', 'GET'])
 def api_participant():
-    global participant
     return jsonify(participant)

@@ -13,7 +13,8 @@ class App extends Component {
   constructor(props) {
      super(props);
      this.state = {
-      user : "",
+      value: '',
+      user : '',
       loading: true
       };
      this.handleChange = this.handleChange.bind(this);
@@ -34,24 +35,14 @@ class App extends Component {
         headers:{
             "content_type":"application/json",
         },
-        body:JSON.stringify(this.state.value)
         }
       ).then(response => {
         return response.json()
       }).then(json => {
       console.log=(json)
       this.setState({user: json})
-      })
-
+    })
   }
-
-
-  /*componentDidMount() {
-    this.setState({ isLoading: true });
-    fetch('/api/group')
-      .then(response => response.json())
-      .then(data => this.setState({ hits: data.hits }));
-  }*/
 
 
 render(){
@@ -61,11 +52,11 @@ render(){
     <h1>Guess The Price</h1>
     </div>
     <div className="left-section">
-    <form onSubmit={this.handleSubmit} id="login_session" method="POST">
+    <form onSubmit={this.handleSubmit} action="/api/user" id="login_session" method="POST">
     <h2>Session Creator</h2>
     <p>Name:</p>
-    <input type="text" name="nm" />
-    <input type="submit" value="Login" onChange={this.handleChange}/>
+    <input type="text" name="nm" onChange={this.handleChange}/>
+    <input type="submit" value="Login"/>
     </form>
     <Screen />
     </div>
