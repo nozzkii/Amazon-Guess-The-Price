@@ -66,8 +66,8 @@ def redirecthome():
 
 @app.route("/home", methods=['POST', 'GET'])
 def home():
-    messages=History.query.all()
-    users=User.query.all()
+    #messages=History.query.all()
+    messages =  db.session.query(History.message, User.name).filter(History.uid == User.id)
     #interval = countdown()
     if request.method == "POST" and request.form['nm'] != 0 :
         user = request.form["nm"]
@@ -77,11 +77,10 @@ def home():
         sql_user = User(name=user)
         db.session.add(sql_user)
         db.session.commit()
-        #return jsonify(user)
         return redirect(url_for("user"))
     else:
         return render_template("index.html", group=participant, file_count=file_count, \
-         img_url=request.args.get('img_url'), messages=messages, users=users)
+         img_url=request.args.get('img_url'), messages=messages,)
 
 
 @app.route("/lobby")
