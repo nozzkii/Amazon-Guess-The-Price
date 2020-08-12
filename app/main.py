@@ -115,6 +115,8 @@ def user():
 
 @app.route("/logout", methods=['POST', 'GET'])
 def logout():
+    User.query.filter(User.name == session["user"]).delete()
+    db.session.commit()
     session.pop("user", None)
     flash("You have been logged out")
     return redirect(url_for("home"))
