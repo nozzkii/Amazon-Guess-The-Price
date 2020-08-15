@@ -9,6 +9,7 @@ from flask_socketio import SocketIO, send
 from plugin.cookie import cookieconf
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+import threading
 
 
 app = Flask(__name__, static_url_path='/static')
@@ -30,12 +31,22 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
     messages=db.relationship('History', backref='owner')
+    points=db.relationship('Score', backref='owner')
 
 class History(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String(500), nullable=False)
     uid = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+class Image(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(500), nullable=False)
+    price = db.Column(db.Integer)
+
+class Score(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    points = db.Column(db.Integer)
+    uid = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 db.create_all()
 
@@ -67,7 +78,9 @@ def redirecthome():
 @app.route("/home", methods=['POST', 'GET'])
 def home():
     #messages=History.query.all()
-    messages =  db.session.query(History.message, User.name).filter(History.uid == User.id)
+    messages =  db.session. \
+    query(History.message, User.name, History.id).filter(User.id== History.uid)
+    #order_by(db.asc(History.id))
     #interval = countdown()
     if request.method == "POST" and request.form['nm'] != 0 :
         user = request.form["nm"]
@@ -102,19 +115,17 @@ def letsplay():
 @app.route("/user")
 def user():
     if "user" in session:
-        try:
-            user = session["user"]
-            flash(f"You are logged in as {user}")
-            return redirect(url_for("home"))
-        except (sqlalchemy.exc.IntegrityError) as e:
-            flash(f"User: {user} already in use")
-            return redirect(url_for("home"))
+        user = session["user"]
+        flash(f"You are logged in as {user}")
+        return redirect(url_for("home"))
     else:
         return redirect(url_for("lobby"))
 
 @app.route("/logout", methods=['POST', 'GET'])
 def logout():
     User.query.filter(User.name == session["user"]).delete()
+    db.session.query(History.message, User.name, History.id). \
+    filter(User.id== History.uid).filter(User.name == session["user"])
     db.session.commit()
     session.pop("user", None)
     flash("You have been logged out")
@@ -137,7 +148,6 @@ def countdown():
 
 
 @socketio.on('screenshot', namespace='/')
-#@app.route("/newproduct", methods=['POST', 'GET'])
 def newproduct():
     global arr
     current_arr = arr
@@ -171,7 +181,8 @@ def handleMessage(msg):
         db.session.commit()
         console.log("sent db values")
     else:
-        send('<span style="background-color:orange; width:100%">You need a session name! Please create a session name.</span>')
+        send('<span style="background-color:orange; width:100%">You need a session name!\
+         Please create a session name.</span>')
 
 @socketio.on('join', namespace='/')
 def on_join(data):
@@ -225,7 +236,6 @@ def api_user():
         user = request.form["nm"]
         session["user"] = user
         session.permanent = True
-        #return jsonify(user)
         return jsonify({session["user"]})
 
 @app.route('/api/participant', methods=['POST', 'GET'])

@@ -68,7 +68,6 @@
     {% endif %}
     <div class="chatfield">
       {% for msg in messages %}
-
       <li>User {{msg.name}}:<br>{{msg.message}}</li>
       {% endfor %}
       <p>{{user}}</p><ul id="messages"></ul>
