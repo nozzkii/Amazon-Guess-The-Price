@@ -9,8 +9,9 @@
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
-    "request": "^2.88.2"
+    "react-scripts": "^3.4.3",
+    "request": "^2.88.2",
+    "socket.io-client": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

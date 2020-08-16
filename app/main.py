@@ -9,7 +9,7 @@ from flask_socketio import SocketIO, send
 from plugin.cookie import cookieconf
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-import threading
+#import threading
 
 
 app = Flask(__name__, static_url_path='/static')
@@ -82,7 +82,7 @@ def home():
     query(History.message, User.name, History.id).filter(User.id== History.uid)
     #order_by(db.asc(History.id))
     #interval = countdown()
-    if request.method == "POST" and request.form['nm'] != 0 :
+    if request.method == "POST" and request.form['nm'] != "" :
         user = request.form["nm"]
         session["user"] = user
         session.permanent = True

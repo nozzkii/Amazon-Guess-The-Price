@@ -4,6 +4,7 @@ import Users from './Components/users/users'
 import Participants from './Components/participants/participants'
 import Screen from './Components/screen/screen'
 import Chat from './Components/chat/chat'
+import io from "socket.io-client";
 
 
 
@@ -42,6 +43,18 @@ class App extends Component {
       console.log=(json)
       this.setState({user: json})
     })
+  }
+
+  componentDidMount() {
+    const socket = io('http://localhost:5000/');
+
+    socket.on('connect', function() {
+    socket.emit('connected', {data: 'I\'m connected!'});
+    });
+
+    socket.on('disconnect', function(){
+      socket.emit('disconnect', {data: 'I\'m disconnected!'});
+    });
   }
 
 
