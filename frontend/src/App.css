@@ -8,7 +8,7 @@
 }
 .right-section{
   width: 25%;
-  margin-right:5%;
+  margin-right:0;
   margin-left:0;
   height: 100%;
   background: #005580;
@@ -37,21 +37,24 @@
   overflow: auto;
 }
 
-.chatform{
-}
-
 .chatfield{
   background: #fff;
   height:200px;
-  margin: 10%;
   overflow: auto;
+  margin-bottom: 5%;
 }
 
-.msg {
+.msg{
     width: 100%;
     word-break: break-all;
 }
 
+.timer{
+  background: #fff;
+  height: 50px;
+  width: 50px;
+  color: #000
+}
 
 .right-side-el{
   margin: 0 10%;

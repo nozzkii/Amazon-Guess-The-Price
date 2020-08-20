@@ -8,9 +8,8 @@ from datetime import timedelta
 from flask_socketio import SocketIO, send
 from plugin.cookie import cookieconf
 from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 #import threading
-
 
 app = Flask(__name__, static_url_path='/static')
 CORS(app, resources=r'/api/*')
@@ -23,9 +22,9 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:test@db-data/mydb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
+#socketio = SocketIO(app)
 db = SQLAlchemy(app)
-
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -49,7 +48,6 @@ class Score(db.Model):
     uid = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 db.create_all()
-
 
 path, dirs, files = next(os.walk("/usr/src/app/static/img"))
 file_count = len(files)
@@ -95,7 +93,6 @@ def home():
         return render_template("index.html", group=participant, file_count=file_count, \
          img_url=request.args.get('img_url'), messages=messages,)
 
-
 @app.route("/lobby")
 def lobby():
     if "user" in session:
@@ -106,11 +103,9 @@ def lobby():
         notification = f"<p>You are not logged in</p>"
         return render_template("lobby.html", notification=notification)
 
-
 @app.route("/letsplay")
 def letsplay():
     return render_template("letsplay.html")
-
 
 @app.route("/user")
 def user():
@@ -131,7 +126,6 @@ def logout():
     flash("You have been logged out")
     return redirect(url_for("home"))
 
-
 @socketio.on("countdown", namespace='/')
 def countdown():
     t = 10
@@ -143,9 +137,6 @@ def countdown():
         time.sleep(1)
         t -= 1
     socketio.emit('countdown', {'timespan': timespan}, broadcast=True)
-
-
-
 
 @socketio.on('screenshot', namespace='/')
 def newproduct():
@@ -200,8 +191,13 @@ def on_leave(data):
 
 @socketio.on('connect', namespace='/')
 def on_connect():
-    print('connected')
+    print("connected")
     clients.append(request.sid)
+
+@socketio.on('estimate', namespace='/')
+def on_connect():
+    #clients.append(request.sid)
+    print("estimated")
 
 @socketio.on('disconnect', namespace='/')
 def on_disconnect():
@@ -236,7 +232,7 @@ def api_user():
         user = request.form["nm"]
         session["user"] = user
         session.permanent = True
-        return jsonify({session["user"]})
+        return jsonify(user=user)
 
 @app.route('/api/participant', methods=['POST', 'GET'])
 def api_participant():

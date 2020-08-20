@@ -11,6 +11,29 @@ body{
   background: #2c3e50;
 }
 
+img{max-width:100%; height:auto}
+
+form{
+  width: 100%;
+}
+
+h1, h2, p{
+  color: #ecf0f1;
+}
+
+a {
+  color: #ecf0f1;
+  text-decoration: none;
+
+  &:hover {
+      color: #1abc9c;
+    }
+}
+
+li{
+  list-style-type: none;
+}
+
 .left-section{
   width: 65%;
   height: 100%;
@@ -57,20 +80,10 @@ body{
   margin-bottom: 5%;
 }
 
-
-
-img{max-width:100%; height:auto}
-
-form{
-  width: 100%;
-  float:left;
-}
-
 .msg{
     width: 100%;
     word-break: break-all;
 }
-
 
 .timer{
   background: #fff;
@@ -88,10 +101,6 @@ form{
  content: "";
  clear: both;
  display: table;
-}
-
-h1, h2, p{
-  color: #ecf0f1;
 }
 
 .login {
@@ -121,25 +130,6 @@ h1, h2, p{
   margin: 0 5%;*/
   text-align: center;
 }
-
-a {
-  color: #ecf0f1;
-  text-decoration: none;
-
-  &:hover {
-      color: #1abc9c;
-    }
-}
-
-li{
-  list-style-type: none;
-}
-
-/**@media screen and (max-width: 500px) {
-  .column {
-    width: 100%;
-  }
-}**/
 
 @media (max-width: 400px) {
   .four-column{

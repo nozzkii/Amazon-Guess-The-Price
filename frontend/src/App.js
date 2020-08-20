@@ -16,17 +16,17 @@ class App extends Component {
      this.state = {
       value: '',
       user : '',
-      loading: true
+      loading: true,
+      backend: 'http://localhost:5000/'
       };
+
      this.handleChange = this.handleChange.bind(this);
      this.handleSubmit = this.handleSubmit.bind(this);
-
    }
 
   handleChange(event) {
     this.setState({value: event.target.value});
   }
-
 
   handleSubmit(event) {
     console.log("making request")
@@ -36,9 +36,10 @@ class App extends Component {
         headers:{
             "content_type":"application/json",
         },
+        body:JSON.stringify(this.state.user)
         }
       ).then(response => {
-        return response.json()
+        response.json()
       }).then(json => {
       console.log=(json)
       this.setState({user: json})
@@ -46,17 +47,23 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const socket = io('http://localhost:5000/');
+    const socket = io(this.state.backend);
 
     socket.on('connect', function() {
+    console.log("connect");
     socket.emit('connected', {data: 'I\'m connected!'});
     });
 
-    socket.on('disconnect', function(){
+    /*socket.on('disconnect', function(){
       socket.emit('disconnect', {data: 'I\'m disconnected!'});
+    });*/
+
+    socket.on('message', function(msg) {
+    /*$("#messages").append('<li class="msg">'+msg+'</li>');*/
+    console.log('Received message');
+    /*objDiv.scrollTop = objDiv.scrollHeight;*/
     });
   }
-
 
 render(){
   return (
@@ -74,10 +81,12 @@ render(){
     <Screen />
     </div>
     <div className="right-section">
+    <div className="right-side-el">
     <h1> Player Name: {this.state.user} </h1>
     <Users />
     <Participants />
     <Chat />
+    </div>
     </div>
 
     </div>
