@@ -7,14 +7,15 @@ class Countdown extends Component {
     state = {
         minutes: undefined,
         seconds: undefined
+
     };
 
     componentDidMount() {
+        const then = moment().add(3, 'minutes')
         this.interval = setInterval(() => {
-            const now = moment()
-            const countdown = now.add(3, 'minutes')
-            const minutes = countdown.format('mm')
-            const seconds = countdown.format('ss')
+        const countdown = moment(then-moment())
+        const minutes = countdown.format('mm')
+        const seconds = countdown.format('ss')
 
             this.setState({minutes, seconds });
         }, 100);
@@ -27,11 +28,11 @@ class Countdown extends Component {
     }
 
     render() {
-        const {	minutes, seconds } = this.state;
+        const {	minutes, seconds } = this.state
 
         // Mapping the date values to radius values
-        const minutesRadius = mapNumber(minutes, 60, 0, 0, 360);
-        const secondsRadius = mapNumber(seconds, 60, 0, 0, 360);
+        const minutesRadius = mapNumber(minutes, 60, 0, 0, 360)
+        const secondsRadius = mapNumber(seconds, 60, 0, 0, 360)
 
         if (!seconds) {
             return null;
@@ -39,19 +40,12 @@ class Countdown extends Component {
 
         return (
             <div>
-                <h1>Countdown</h1>
+            <br></br>
                 <div className="countdown-wrapper">
-                    {minutes && (
-                        <div className="countdown-item">
-                            <SVGCircle radius={minutesRadius} />
-                            {minutes}
-                            <span>minutes</span>
-                        </div>
-                    )}
                     {seconds && (
                         <div className="countdown-item">
                             <SVGCircle radius={secondsRadius} />
-                            {seconds}
+                            {minutes}<span>minutes</span><br></br>{seconds}
                             <span>seconds</span>
                         </div>
                     )}
@@ -83,10 +77,10 @@ function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
 }
 
 function describeArc(x, y, radius, startAngle, endAngle) {
-    var start = polarToCartesian(x, y, radius, endAngle);
-    var end = polarToCartesian(x, y, radius, startAngle);
+    var start = polarToCartesian(x, y, radius, endAngle)
+    var end = polarToCartesian(x, y, radius, startAngle)
 
-    var largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
+    var largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1'
 
     var d = [
         'M',
