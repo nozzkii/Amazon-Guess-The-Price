@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import './App.css';
+import React, {Component} from 'react'
+import './App.css'
 import Users from './Components/users/users'
 import Participants from './Components/participants/participants'
 import Screen from './Components/screen/screen'
 import Chat from './Components/chat/chat'
-import io from "socket.io-client";
-
+import io from "socket.io-client"
+import Countdown from './Components/countdown/countdown'
 
 
 class App extends Component {
@@ -86,6 +86,7 @@ render(){
     <Users />
     <Participants />
     <Chat />
+    <Countdown/>
     </div>
     </div>
 
