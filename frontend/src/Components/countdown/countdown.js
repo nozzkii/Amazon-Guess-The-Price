@@ -41,11 +41,11 @@ class Countdown extends Component {
             <div>
             <br></br>
                 <div className="countdown-wrapper">
+                {minutes}<span> minutes</span><br></br>{seconds}
+                            <span> seconds</span>
                     {seconds && (
                         <div className="countdown-item">
                             <SVGCircle radius={secondsRadius} />
-                            {minutes}<span>minutes</span><br></br>{seconds}
-                            <span>seconds</span>
                         </div>
                     )}
                 </div>

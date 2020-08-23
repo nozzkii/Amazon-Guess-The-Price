@@ -53,8 +53,7 @@ class Content extends React.Component {
    render() {
       return (
          <div>
-            <div>{this.props.componentData.id}</div>
-            <div>User: {this.props.componentData.user}</div>
+            <div>#{this.props.componentData.id} {this.props.componentData.user}</div>
          </div>
       );
    }

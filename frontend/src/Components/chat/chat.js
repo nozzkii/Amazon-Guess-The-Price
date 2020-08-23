@@ -15,7 +15,7 @@ render(){
       <ul id="messages"></ul>
     </div>
     <input type="text" id="myMessage"></input>
-    <button id="sendButton">SEND</button>
+    <input className="button" type="submit" id="sendButton" value="SEND"/>
     </div>
   );
 

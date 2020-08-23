@@ -5,6 +5,7 @@
   margin-right:0;
   background: #34495e;
   float: left;
+  padding: 40px 15px 0 15px;
 }
 .right-section{
   width: 25%;
@@ -13,6 +14,7 @@
   height: 100%;
   background: #005580;
   float: left;
+  padding-top: 40px;
 }
 
 .flash{color: red}
@@ -27,21 +29,19 @@
   padding: 20px 5%;
   width: 15%;
   height: 100px;
-  /*padding: 20px;*/
 }
 .screen{
   background: #fff;
   height: 400px;
-  /*display: flex;*/
   width: 100%;
   overflow: auto;
 }
 
 .chatfield{
   background: #fff;
-  height:200px;
+  height:170px;
   overflow: auto;
-  margin-bottom: 5%;
+  margin: 5% 0;
 }
 
 .msg{
@@ -89,8 +89,57 @@
   width: 100%;
   height: 100px;
   padding-top: 50px;
-  /*border-radius: 5px;
-  padding: 10px 0 10px 10px;
-  margin: 0 5%;*/
   text-align: center;
+}
+
+.button{
+
+  color: rgba(250, 250, 250, 0.7);
+  background: linear-gradient(145deg, #717070 10%, #CCCEEE 90%);
+  border: none;
+  padding: 4px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 0;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+.button:hover {
+  color: rgba(70, 170, 180, 1);
+  box-shadow: 0 5px 15px rgba(0, 204, 204, .4);
+  background: linear-gradient(160deg, #808080  10%, #CCCEEE 90%);
+  text-shadow: -1px 2px 2px #FFF,
+          1px 1px 2px #DDD,
+          1px -1px 0 #DDD,
+          -1px -1px 0 #DDD;
+}
+
+.button:before {
+    position: absolute;
+    top: 0; right: 0;
+    border-top: 60px solid white;
+    border-left: 60px linear-gradient(160deg, #808080  10%, #CCCEEE 90%);
+    width: 0;
+}
+
+.four-column{
+float: left;
+padding: 15px 5%;
+width: 15%;
+height: 70px;
+}
+
+#nextProduct{
+  display: inline-block;
+
+}
+
+#myMessage, #estimate{
+  height: 20px;
+  margin: 4px 2px;
 }

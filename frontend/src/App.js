@@ -79,20 +79,39 @@ render(){
     <h1>Guess The Price</h1>
     </div>
     <div className="left-section">
+    <div class="four-column">
     <form onSubmit={this.handleSubmit} id="login_session" method="POST">
-    <h2>Session Creator</h2>
-    <p>Name:</p>
-    <input type="text" name="nm" onChange={this.handleChange}/>
-    <button onClick={this.sendMessage} type="submit">Login</button>
+    <input type="text" name="nm" onChange={this.handleChange} placeholder="Nickname"/>
+    <input className="button" onClick={this.sendMessage} type="submit" value="Login" />
     </form>
+    </div>
+    <div class="four-column">
+    <form action = "/logout" method = "POST">
+    <input className="button" type="submit" value="Logout"/>
+    </form>
+    </div>
+    <div class="four-column">
+    <form onSubmit={this.handleSubmit} id="join_lobby" method="POST">
+    <input type="text" placeholder="Room Name"/>
+    <input className="button" onClick={this.sendMessage} type="submit" value="Join lobby" />
+    </form>
+    </div>
+    <div class="four-column">
+    <form onSubmit={this.handleSubmit} id="leave_lobby" method="POST">
+    <input className="button" onClick={this.sendMessage} type="submit" value="Leave lobby" />
+    </form>
+    </div>
     <Screen />
     </div>
     <div className="right-section">
     <div className="right-side-el">
-    <h1> Player Name: {this.state.user} </h1>
+    <h1> User {this.state.user} </h1>
     <Users />
     <Participants />
     <Chat />
+    <input type="text" id="estimate"/>
+    <input className="button" type="submit" id="sendButton" value="ESTIMATE"/>
+    <input className="button" type="submit" id="nextProduct" id="createScreenshot" value="NEXT PRODUCT"/>
     <Countdown/>
     </div>
     </div>
