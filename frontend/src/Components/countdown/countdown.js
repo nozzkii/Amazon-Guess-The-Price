@@ -7,15 +7,14 @@ class Countdown extends Component {
     state = {
         minutes: undefined,
         seconds: undefined
-
     };
 
     componentDidMount() {
-        const then = moment().add(3, 'minutes')
+        const then = moment().add(3, 'minutes');
         this.interval = setInterval(() => {
-        const countdown = moment(then-moment())
-        const minutes = countdown.format('mm')
-        const seconds = countdown.format('ss')
+        const countdown = moment(then-moment());
+        const minutes = countdown.format('mm');
+        const seconds = countdown.format('ss');
 
             this.setState({minutes, seconds });
         }, 100);
@@ -28,11 +27,11 @@ class Countdown extends Component {
     }
 
     render() {
-        const {	minutes, seconds } = this.state
+        const {	minutes, seconds } = this.state;
 
         // Mapping the date values to radius values
-        const minutesRadius = mapNumber(minutes, 60, 0, 0, 360)
-        const secondsRadius = mapNumber(seconds, 60, 0, 0, 360)
+        const minutesRadius = mapNumber(minutes, 60, 0, 0, 360);
+        const secondsRadius = mapNumber(seconds, 60, 0, 0, 360);
 
         if (!seconds) {
             return null;
@@ -60,7 +59,7 @@ const SVGCircle = ({ radius }) => (
         <path
             fill="none"
             stroke="#333"
-            stroke-width="4"
+            strokeWidth="4"
             d={describeArc(50, 50, 48, 0, radius)}
         />
     </svg>
@@ -77,10 +76,10 @@ function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
 }
 
 function describeArc(x, y, radius, startAngle, endAngle) {
-    var start = polarToCartesian(x, y, radius, endAngle)
-    var end = polarToCartesian(x, y, radius, startAngle)
+    var start = polarToCartesian(x, y, radius, endAngle);
+    var end = polarToCartesian(x, y, radius, startAngle);
 
-    var largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1'
+    var largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
 
     var d = [
         'M',

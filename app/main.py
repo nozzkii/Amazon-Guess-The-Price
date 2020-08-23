@@ -77,7 +77,7 @@ def redirecthome():
 def home():
     #messages=History.query.all()
     messages =  db.session. \
-    query(History.message, User.name, History.id).filter(User.id== History.uid)
+    query(History.message, User.name, History.id).filter(User.id== History.uid).order_by(History.id.asc())
     #order_by(db.asc(History.id))
     #interval = countdown()
     if request.method == "POST" and request.form['nm'] != "" :
@@ -228,11 +228,10 @@ def api():
 
 @app.route('/api/user', methods=['POST', 'GET'])
 def api_user():
-    if request.method == "POST" and request.form['nm'] != 0 :
-        user = request.form["nm"]
+    if request.method == "POST":
         session["user"] = user
         session.permanent = True
-        return jsonify(user=user)
+        #return jsonify(user=user)
 
 @app.route('/api/participant', methods=['POST', 'GET'])
 def api_participant():

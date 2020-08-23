@@ -20,12 +20,12 @@ class App extends Component {
       backend: 'http://localhost:5000/'
       };
 
-     this.handleChange = this.handleChange.bind(this);
-     this.handleSubmit = this.handleSubmit.bind(this);
+     this.handleChange = this.handleChange.bind(this)
+     this.handleSubmit = this.handleSubmit.bind(this)
    }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({value: event.target.value})
   }
 
   handleSubmit(event) {
@@ -50,8 +50,8 @@ class App extends Component {
     const socket = io(this.state.backend);
 
     socket.on('connect', function() {
-    console.log("connect");
-    socket.emit('connected', {data: 'I\'m connected!'});
+    console.log("connect")
+    socket.emit('connected', {data: 'I\'m connected!'})
     });
 
     /*socket.on('disconnect', function(){
@@ -59,10 +59,17 @@ class App extends Component {
     });*/
 
     socket.on('message', function(msg) {
+    document.getElementById("messages").innerHTML = msg
     /*$("#messages").append('<li class="msg">'+msg+'</li>');*/
-    console.log('Received message');
+    console.log('Received message')
     /*objDiv.scrollTop = objDiv.scrollHeight;*/
     });
+  }
+
+  sendMessage(e){
+  var x = document.getElementById("btn1").name
+  console.log("clicked")
+
   }
 
 render(){
@@ -72,11 +79,11 @@ render(){
     <h1>Guess The Price</h1>
     </div>
     <div className="left-section">
-    <form onSubmit={this.handleSubmit} action="/api/user" id="login_session" method="POST">
+    <form onSubmit={this.handleSubmit} id="login_session" method="POST">
     <h2>Session Creator</h2>
     <p>Name:</p>
     <input type="text" name="nm" onChange={this.handleChange}/>
-    <input type="submit" value="Login"/>
+    <button onClick={this.sendMessage} type="submit">Login</button>
     </form>
     <Screen />
     </div>

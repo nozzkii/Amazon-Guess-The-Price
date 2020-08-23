@@ -30,14 +30,10 @@ console.log("received price estimation");
 
 $('#createScreenshot').on('click', function() {
     $('#img_url').empty();
-    //socket.emit('countdown');
     socket.emit('screenshot');
  });
 
  $('#productbutton').on('click', function() {
-     $('#img_url').empty();
-     //socket.emit('countdown');
-     socket.emit('estimate');
      console.log("sent");
   });
 
