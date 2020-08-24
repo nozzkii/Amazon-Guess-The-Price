@@ -8,6 +8,7 @@ import io from "socket.io-client"
 import Countdown from './Components/countdown/countdown'
 
 
+
 class App extends Component {
 
 
@@ -51,7 +52,6 @@ class App extends Component {
 
     socket.on('connect', function() {
     console.log("connect")
-    socket.emit('connected', {data: 'I\'m connected!'})
     });
 
     /*socket.on('disconnect', function(){
@@ -105,7 +105,7 @@ render(){
     </div>
     <div className="right-section">
     <div className="right-side-el">
-    <h1> User {this.state.user} </h1>
+    <h1><img src={process.env.PUBLIC_URL + 'usericon.png' } className="icon" /> User {this.state.user} </h1>
     <Users />
     <Participants />
     <Chat />

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import io from "socket.io-client";
+//import io from "socket.io-client";
+//import Socket from './../socket/socket';
 
 
 class Chat extends Component {
@@ -7,7 +8,6 @@ class Chat extends Component {
     sendMessage(e){
   var x = document.getElementById("btn1").name;
   console.log("clicked");
-
   }
 
 

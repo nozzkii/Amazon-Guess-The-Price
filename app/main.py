@@ -191,6 +191,7 @@ def on_leave(data):
 
 @socketio.on('connect', namespace='/')
 def on_connect():
+    console.log("server callback connect")
     print("connected")
     clients.append(request.sid)
 

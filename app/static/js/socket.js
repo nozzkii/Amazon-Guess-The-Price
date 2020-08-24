@@ -4,7 +4,6 @@ var socket = io.connect('localhost:5000/');
 var objDiv = document.getElementById("messages");
 
 socket.on('connect', function() {
-socket.emit('connected', {data: 'I\'m connected!'});
 console.log("connected");
 });
 

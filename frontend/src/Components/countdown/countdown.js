@@ -2,21 +2,54 @@ import React, {Component} from 'react';
 
 import moment from 'moment';
 
+//credit goes to Florin Pop & John Madhavan-Reese
+/*const formatInt = (int: number): string => {
+        if (int < 10) {
+        return `0${int}`;
+        }
+        return `${int}`;
+        };
 
+        export const formatDuration = (time: string): string => {
+        const seconds = moment.duration(time).seconds();
+        const minutes = moment.duration(time).minutes();
+        const hours = moment.duration(time).hours();
+        if (hours > 0) {
+        return `${formatInt(hours)}:${formatInt(minutes)}:${formatInt(seconds)}`;
+        }
+        if (minutes > 0) {
+        return `${formatInt(minutes)}:${formatInt(seconds)}`;
+        }
+        return `00:${formatInt(seconds)}`;
+        };
+
+
+*/
 class Countdown extends Component {
     state = {
         minutes: undefined,
-        seconds: undefined
+        seconds: undefined,
+        timeout: undefined
     };
 
+
     componentDidMount() {
-        const then = moment().add(3, 'minutes');
+        const then = moment().add(1, 'minutes').add(30, 'seconds');
+        //const duration = formatDuration("0:3:90");
         this.interval = setInterval(() => {
+        const {timelength, timeFormat } = this.props;
+        const date = moment().startOf('day');
         const countdown = moment(then-moment());
         const minutes = countdown.format('mm');
         const seconds = countdown.format('ss');
+        let timeout = '';
+        if(minutes === "00" && seconds === "00"){
+            timeout = 'Times Up';
+            clearInterval(this.interval);
+            document.getElementById("timespan").outerHTML = "";
+        }
+        this.setState({minutes, seconds, timeout});
 
-            this.setState({minutes, seconds });
         }, 100);
     }
 
@@ -27,10 +60,9 @@ class Countdown extends Component {
     }
 
     render() {
-        const {	minutes, seconds } = this.state;
+        const {	minutes, seconds, timeout} = this.state;
 
         // Mapping the date values to radius values
-        const minutesRadius = mapNumber(minutes, 60, 0, 0, 360);
         const secondsRadius = mapNumber(seconds, 60, 0, 0, 360);
 
         if (!seconds) {
@@ -41,8 +73,7 @@ class Countdown extends Component {
             <div>
             <br></br>
                 <div className="countdown-wrapper">
-                {minutes}<span> minutes</span><br></br>{seconds}
-                            <span> seconds</span>
+                <div id="timespan">{minutes} minutes {seconds} seconds</div> {timeout}
                     {seconds && (
                         <div className="countdown-item">
                             <SVGCircle radius={secondsRadius} />
