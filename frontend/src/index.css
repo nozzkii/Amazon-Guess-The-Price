@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat');
+
 *{
   margin: 0;
   padding: 0
@@ -6,8 +9,8 @@
 body{
   margin: 0;
   padding: 0;
-  font-family: Sans-serif;
-  background: #2c3e50;
+  font-family: Montserrat, Sans-serif;
+  background: linear-gradient(#222323  30%, #CCCEEE 80%);
 }
 
 img{max-width:100%; height:auto}

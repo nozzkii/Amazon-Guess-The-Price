@@ -79,24 +79,24 @@ render(){
     <h1>Guess The Price</h1>
     </div>
     <div className="left-section">
-    <div class="four-column">
+    <div className="four-column">
     <form onSubmit={this.handleSubmit} id="login_session" method="POST">
     <input type="text" name="nm" onChange={this.handleChange} placeholder="Nickname"/>
     <input className="button" onClick={this.sendMessage} type="submit" value="Login" />
     </form>
     </div>
-    <div class="four-column">
+    <div className="four-column">
     <form action = "/logout" method = "POST">
     <input className="button" type="submit" value="Logout"/>
     </form>
     </div>
-    <div class="four-column">
+    <div className="four-column">
     <form onSubmit={this.handleSubmit} id="join_lobby" method="POST">
     <input type="text" placeholder="Room Name"/>
     <input className="button" onClick={this.sendMessage} type="submit" value="Join lobby" />
     </form>
     </div>
-    <div class="four-column">
+    <div className="four-column">
     <form onSubmit={this.handleSubmit} id="leave_lobby" method="POST">
     <input className="button" onClick={this.sendMessage} type="submit" value="Leave lobby" />
     </form>
