@@ -1,27 +1,60 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component} from 'react';
 import io from "socket.io-client";
 
-//import Socket from './../socket/socket';
-
+let endPoint = "http://localhost:5000";
+let socket = io.connect(`${endPoint}`);
 
 class Chat extends Component {
 
-    sendMessage(e){
-  var x = document.getElementById("btn1").name;
-  console.log("clicked");
+constructor(props){
+  super(props);
+  this.state = {
+  messages: "Hello and Welcome",
+  message: ""
+};}
+
+componentDidMount = () => {
+  socket.on("message", msg => {
+    this.setState({
+      messages: [...this.state.messages, msg]
+    });
+  });
+};
+
+onChange = e => {
+  this.setState({
+    [e.target.name]: e.target.value
+  });
+};
+
+onClick = () => {
+  const { message } = this.state;
+  if (message !== "") {
+    this.setState({
+      message: ""
+    });
+    socket.emit("message", this.state.message);
+  } else {
+    alert("Please Add A Message");
   }
+};
 
 
 render(){
   return (
     <div>
     <div className="chatfield">
-      <li></li>
-      <p></p>
-      <ul id="messages"></ul>
+      <ul id="messages">
+      {this.state.messages.length > 0 &&
+            Object.keys(this.state.messages).map(msg => (
+                <p className="msg">{msg}</p>
+            ))}
+    </ul>
     </div>
-    <input type="text" id="myMessage"/>
-    <input className="button" onClick={this.sendMessage} type="submit" id="sendButton" value="SEND"/>
+    <input type="text" id="myMessage" value={this.state.message}
+          name="message"
+          onChange={e => this.onChange(e)}/>
+    <input className="button" onClick={() => this.onClick()} type="submit" id="sendButton" value="SEND"/>
     </div>
   );
 

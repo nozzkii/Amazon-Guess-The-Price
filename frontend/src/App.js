@@ -1,4 +1,4 @@
-import React, {Component, userState, useEffect} from 'react'
+import React, {Component} from 'react'
 import './App.css'
 import Users from './Components/users/users'
 import Participants from './Components/participants/participants'
@@ -12,17 +12,17 @@ let socket = io.connect(`${endPoint}`);
 
 const App = () => {
 
-  const [messages, setMessages]= React.useState(["Hello and  Welcome"]);
-  const[message, setMessage]= React.useState("");
-  const [value, setValue]= React.useState("");
-  const [user, setUser]=React.useState("");
-  const [loading]=React.useState(true);
-  const [backend]=React.useState('http://localhost:5000/');
+  const useState = React.useState
+  const useEffect = React.useEffect
+  const [value, setValue]= useState("");
+  const [user, setUser]=useState("");
+  const [loading]=useState(true);
+  const [backend]=useState('http://localhost:5000/');
 
 
      //handleSubmit = handleSubmit.bind(this)
 
-  function handleChange(event) {
+  const handleChange = event => {
     setValue(event.target.value);
   }
 /*
@@ -52,16 +52,7 @@ const App = () => {
        });
     });
 
-  function sendMessage(){
-    if (message !== "") {
-      socket.emit("message", message);
-      setMessage("");
-    } else {
-      alert("Please Add A Message");
-    }
-  };
-
-  function login(e){
+  const login = e =>{
   var x = document.getElementById("btn1").name
   console.log("clicked")
   }
