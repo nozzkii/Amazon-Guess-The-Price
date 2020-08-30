@@ -120,14 +120,6 @@
           -1px -1px 0 #DDD;
 }
 
-.button:before {
-    position: absolute;
-    top: 0; right: 0;
-    border-top: 60px solid white;
-    border-left: 60px linear-gradient(160deg, #808080  10%, #CCCEEE 90%);
-    width: 0;
-}
-
 .four-column{
 float: left;
 padding: 15px 5%;

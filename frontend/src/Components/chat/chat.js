@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
-//import io from "socket.io-client";
+import React, {Component, useState, useEffect} from 'react';
+import io from "socket.io-client";
+
 //import Socket from './../socket/socket';
 
 
@@ -9,7 +10,6 @@ class Chat extends Component {
   var x = document.getElementById("btn1").name;
   console.log("clicked");
   }
-
 
 
 render(){

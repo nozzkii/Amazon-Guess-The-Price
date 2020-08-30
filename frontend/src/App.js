@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, userState, useEffect} from 'react'
 import './App.css'
 import Users from './Components/users/users'
 import Participants from './Components/participants/participants'
@@ -7,29 +7,26 @@ import Chat from './Components/chat/chat'
 import io from "socket.io-client"
 import Countdown from './Components/countdown/countdown'
 
+let endPoint = "http://localhost:5000";
+let socket = io.connect(`${endPoint}`);
+
+const App = () => {
+
+  const [messages, setMessages]= React.useState(["Hello and  Welcome"]);
+  const[message, setMessage]= React.useState("");
+  const [value, setValue]= React.useState("");
+  const [user, setUser]=React.useState("");
+  const [loading]=React.useState(true);
+  const [backend]=React.useState('http://localhost:5000/');
 
 
-class App extends Component {
+     //handleSubmit = handleSubmit.bind(this)
 
-
-  constructor(props) {
-     super(props);
-     this.state = {
-      value: '',
-      user : '',
-      loading: true,
-      backend: 'http://localhost:5000/'
-      };
-
-     this.handleChange = this.handleChange.bind(this)
-     this.handleSubmit = this.handleSubmit.bind(this)
-   }
-
-  handleChange(event) {
-    this.setState({value: event.target.value})
+  function handleChange(event) {
+    setValue(event.target.value);
   }
-
-  handleSubmit(event) {
+/*
+  function handleSubmit(event) {
     console.log("making request")
     fetch("/api/user", {
         method:"POST",
@@ -37,42 +34,38 @@ class App extends Component {
         headers:{
             "content_type":"application/json",
         },
-        body:JSON.stringify(this.state.user)
+        body:JSON.stringify(state.user)
         }
       ).then(response => {
         response.json()
       }).then(json => {
       console.log=(json)
-      this.setState({user: json})
+      setState({user: json})
     })
-  }
+  }*/
 
-  componentDidMount() {
-    const socket = io(this.state.backend);
+    useEffect(() => {
 
-    socket.on('connect', function() {
-    console.log("connect")
+
+       socket.on('connect', function() {
+       console.log("connect")
+       });
     });
 
-    /*socket.on('disconnect', function(){
-      socket.emit('disconnect', {data: 'I\'m disconnected!'});
-    });*/
+  function sendMessage(){
+    if (message !== "") {
+      socket.emit("message", message);
+      setMessage("");
+    } else {
+      alert("Please Add A Message");
+    }
+  };
 
-    socket.on('message', function(msg) {
-    document.getElementById("messages").innerHTML = msg
-    /*$("#messages").append('<li class="msg">'+msg+'</li>');*/
-    console.log('Received message')
-    /*objDiv.scrollTop = objDiv.scrollHeight;*/
-    });
-  }
-
-  sendMessage(e){
+  function login(e){
   var x = document.getElementById("btn1").name
   console.log("clicked")
-
   }
 
-render(){
   return (
     <div className="row">
     <div className="header">
@@ -80,9 +73,9 @@ render(){
     </div>
     <div className="left-section">
     <div className="four-column">
-    <form onSubmit={this.handleSubmit} id="login_session" method="POST">
-    <input type="text" name="nm" onChange={this.handleChange} placeholder="Nickname"/>
-    <input className="button" onClick={this.sendMessage} type="submit" value="Login" />
+    <form id="login_session" method="POST">
+    <input type="text" name="nm" onChange={handleChange} placeholder="Nickname"/>
+    <input className="button" onClick={login} type="submit" value="Login" />
     </form>
     </div>
     <div className="four-column">
@@ -91,21 +84,21 @@ render(){
     </form>
     </div>
     <div className="four-column">
-    <form onSubmit={this.handleSubmit} id="join_lobby" method="POST">
+    <form id="join_lobby" method="POST">
     <input type="text" placeholder="Room Name"/>
-    <input className="button" onClick={this.sendMessage} type="submit" value="Join lobby" />
+    <input className="button" type="submit" value="Join lobby" />
     </form>
     </div>
     <div className="four-column">
-    <form onSubmit={this.handleSubmit} id="leave_lobby" method="POST">
-    <input className="button" onClick={this.sendMessage} type="submit" value="Leave lobby" />
+    <form id="leave_lobby" method="POST">
+    <input className="button" type="submit" value="Leave lobby" />
     </form>
     </div>
     <Screen />
     </div>
     <div className="right-section">
     <div className="right-side-el">
-    <h1><img src={process.env.PUBLIC_URL + 'usericon.png' } className="icon" /> User {this.state.user} </h1>
+    <h1><img src={process.env.PUBLIC_URL + 'usericon.png' } className="icon" /> User {user} </h1>
     <Users />
     <Participants />
     <Chat />
@@ -119,7 +112,6 @@ render(){
     </div>
   );
 
-}
 }
 
 export default App;
