@@ -161,10 +161,9 @@ def newproduct():
         socketio.emit('screenshot', {'img_url': img_url}, broadcast=True)
 
 
-@socketio.on('message')
+@socketio.on('message', namespace='/')
 def handleMessage(msg):
     if "user" in session:
-        console.log("You have a session name!")
         user = session["user"]
         print('Message: ' + msg)
         send(user + ':<br>' + msg, broadcast=True)
@@ -173,36 +172,35 @@ def handleMessage(msg):
         db.session.commit()
         console.log("sent db values")
     else:
-        console.log("You need a session name!")
         send('<span style="background-color:orange; width:100%">You need a session name!\
          Please create a session name.</span>')
 
-@socketio.on('join')
+@socketio.on('join', namespace='/')
 def on_join(data):
     username = session["user"]
     room = data['room']
     join_room(room)
     send(username + ' has entered the room.', room=room)
 
-@socketio.on('leave')
+@socketio.on('leave', namespace='/')
 def on_leave(data):
     username = session["user"]
     room = data['room']
     leave_room(room)
     send(username + ' has left the room.', room=room)
 
-@socketio.on('connect')
+@socketio.on('connect', namespace='/')
 def on_connect():
     console.log("server callback connect")
     print("connected")
     clients.append(request.sid)
 
-@socketio.on('estimate')
+@socketio.on('estimate', namespace='/')
 def on_connect():
     #clients.append(request.sid)
     print("estimated")
 
-@socketio.on('disconnect')
+@socketio.on('disconnect', namespace='/')
 def on_disconnect():
     print('Client disconnected')
 
