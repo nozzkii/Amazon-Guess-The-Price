@@ -1,7 +1,8 @@
 $(document).ready(function() {
 
-var socket = io.connect('localhost:5000/');
-var objDiv = document.getElementById("messages");
+var socket = io.connect('localhost:5000/');          
+
+
 
 socket.on('connect', function() {
 console.log("connected");

@@ -7,7 +7,7 @@ import Chat from './Components/chat/chat'
 import io from "socket.io-client"
 import Countdown from './Components/countdown/countdown'
 
-let endPoint = "http://localhost:5000";
+let endPoint = "http://localhost:5000/";
 let socket = io.connect(`${endPoint}`);
 
 const App = () => {
@@ -17,7 +17,7 @@ const App = () => {
   const [value, setValue]= useState("");
   const [user, setUser]=useState("");
   const [loading]=useState(true);
-  const [backend]=useState('http://localhost:5000/');
+  //const [backend]=useState('http://localhost:5000/');
 
 
      //handleSubmit = handleSubmit.bind(this)
@@ -45,10 +45,8 @@ const App = () => {
   }*/
 
     useEffect(() => {
-
-
-       socket.on('connect', function() {
-       console.log("connect")
+    socket.on('connect', function() {
+    console.log("connect")
        });
     });
 
