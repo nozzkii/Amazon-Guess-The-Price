@@ -10,6 +10,8 @@ import Countdown from './Components/countdown/countdown'
 let endPoint = "http://localhost:5000/";
 let socket = io.connect(`${endPoint}`);
 
+
+
 const App = () => {
 
   const useState = React.useState
@@ -22,8 +24,8 @@ const App = () => {
 
      //handleSubmit = handleSubmit.bind(this)
 
-  const handleChange = event => {
-    setValue(event.target.value);
+  function handleChange(event: React.FormEvent<HTMLInputElement>) {
+    setValue(event.currentTarget.value);
   }
 /*
   function handleSubmit(event) {
@@ -50,8 +52,8 @@ const App = () => {
        });
     });
 
-  const login = e =>{
-  var x = document.getElementById("btn1").name
+  function login (e: React.MouseEvent<HTMLElement>){
+  //var x: HTMLElement = document.getElementById("btn1").name
   console.log("clicked")
   }
 
@@ -93,7 +95,7 @@ const App = () => {
     <Chat />
     <input type="text" id="estimate"/>
     <input className="button" type="submit" id="sendButton" value="ESTIMATE"/>
-    <input className="button" type="submit" id="nextProduct" id="createScreenshot" value="NEXT PRODUCT"/>
+    <input className="button" type="submit" id="nextProduct, createScreenshot" value="NEXT PRODUCT"/>
     <Countdown/>
     </div>
     </div>
