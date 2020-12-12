@@ -1,6 +1,10 @@
 $(document).ready(function() {
 
-var socket = io.connect('localhost:5000/');          
+var socket = io.connect('localhost:5000/');
+var messageDiv = document.getElementById("messages");
+var myMessageDiv = document.getElementById("myMessages");
+var node = document.createElement("LI");
+var br = document.createElement("BR");                
 
 
 
@@ -9,7 +13,10 @@ console.log("connected");
 });
 
 socket.on('message', function(msg) {
-$("#messages").append('<li class="msg">'+msg+'</li>');
+var textnode = document.createTextNode(msg);     
+node.appendChild(textnode); 
+messageDiv.appendChild(node);
+
 console.log('Received message');
 });
 

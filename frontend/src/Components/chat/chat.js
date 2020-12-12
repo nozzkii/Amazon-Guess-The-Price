@@ -9,7 +9,7 @@ class Chat extends Component {
 constructor(props){
   super(props);
   this.state = {
-  messages: "Hello and Welcome",
+  messages: "",
   message: ""
 };}
 
@@ -30,10 +30,10 @@ onChange = e => {
 onClick = () => {
   const { message } = this.state;
   if (message !== "") {
+    socket.emit("message", message);
     this.setState({
       message: ""
     });
-    socket.emit("message", this.state.message);
   } else {
     alert("Please Add A Message");
   }

@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:latest
 MAINTAINER  "Anh Tai" <anhtai.thai@hotmail.de>
 RUN ["apt-get", "update"]
 RUN ["python3", "-m", "pip", "install", "--upgrade", "pip"]
